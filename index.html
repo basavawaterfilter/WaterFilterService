@@ -452,115 +452,139 @@ function ServiceModal({ service, onClose }) {
 //  BOOKING FORM
 // ════════════════════════════════════════════════
 function BookingForm() {
-  const [form, setForm] = useState({ name:'', phone:'', address:'', service:'', date:'' });
-  const [done, setDone] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   async function getLocation() {
 
-  if (!navigator.geolocation) {
-    alert("Geolocation not supported");
-    return;
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+      );
+
+      const data = await res.json();
+
+      document.getElementById("address").value = data.display_name;
+
+    }, () => {
+      alert("Location permission denied");
+    });
+
   }
 
-  navigator.geolocation.getCurrentPosition(async (position) => {
-
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
-    );
-
-    const data = await res.json();
-
-    setForm(f => ({
-      ...f,
-      address: data.display_name
-    }));
-
-  }, () => {
-    alert("Location permission denied");
-  });
-
-}
-  useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    setForm(f => ({ ...f, date: today }));
-  }, []);
-
-  function submit(e) {
-    e.preventDefault();
-    if (!form.name||!form.phone||!form.address||!form.service||!form.date) return;
-    if (!/^[0-9]{10}$/.test(form.phone)) { alert('Enter a valid 10-digit phone number'); return; }
-    setLoading(true);
-    setTimeout(() => {
-      setDone(true); setLoading(false);
-      setTimeout(() => setForm({name:'',phone:'',address:'',service:'',date:new Date().toISOString().split('T')[0]}),2000);
-    }, 600);
-  }
-
-  const upd = k => e => setForm(f => ({ ...f, [k]: e.target.value }));
-  if (done) return (
-    <div className="form-ok">
-      <i className="fas fa-check-circle"></i>
-      <strong>Booking Successful!</strong>
-      <p>We'll call you within 30 minutes to confirm your service.</p>
-    </div>
-  );
   return (
-    <form className="bk-form" onSubmit={submit}>
-      <div className="f-row">
-        <div className="f-grp">
-          <label>Full Name <span>*</span></label>
-          <input type="text" placeholder="Your full name" value={form.name} onChange={upd('name')} required/>
-        </div>
-        <div className="f-grp">
-          <label>Phone Number <span>*</span></label>
-          <input type="tel" placeholder="10-digit mobile" value={form.phone} onChange={e=>setForm(f=>({...f,phone:e.target.value.replace(/\D/g,'').slice(0,10)}))} required/>
-        </div>
-      </div>
-      <div className="f-grp">
-        <label>Address <span>*</span></label>
+
+<form
+  className="bk-form"
+  action="https://formsubmit.co/basavawaterfilter08@gmail.com"
+  method="POST"
+>
+
+<input type="hidden" name="_captcha" value="false"/>
+<input type="hidden" name="_subject" value="New Booking From Website"/>
+<input type="hidden" name="_template" value="table"/>
+
+<div className="f-row">
+
+<div className="f-grp">
+<label>Full Name <span>*</span></label>
+<input
+type="text"
+name="Name"
+placeholder="Your full name"
+required
+/>
+</div>
+
+<div className="f-grp">
+<label>Phone Number <span>*</span></label>
+<input
+type="tel"
+name="Phone"
+placeholder="10-digit mobile"
+pattern="[0-9]{10}"
+required
+/>
+</div>
+
+</div>
+
+<div className="f-grp">
+
+<label>Address <span>*</span></label>
 
 <div style={{display:'flex',gap:'10px'}}>
-  <input
-    type="text"
-    placeholder="Full address in Bengaluru"
-    value={form.address}
-    onChange={upd('address')}
-    required
-    style={{flex:1}}
-  />
 
-  <button
-    type="button"
-    onClick={getLocation}
-    style={{
-      padding:'10px',
-      cursor:'pointer'
-    }}
-  >
-    📍
-  </button>
+<input
+id="address"
+type="text"
+name="Address"
+placeholder="Full address"
+style={{flex:1}}
+required
+/>
+
+<button
+type="button"
+onClick={getLocation}
+>
+📍
+</button>
+
 </div>
-      </div>
-      <div className="f-row">
-        <div className="f-grp">
-          <label>Service Type <span>*</span></label>
-          <select value={form.service} onChange={upd('service')} required>
-            <option value="">Select a service…</option>
-            {['RO Repair','RO Installation','Filter Replacement','AMC Package','Water Softener','Commercial all types of filters','Other',].map(s=><option key={s}>{s}</option>)}
-          </select>
-        </div>
-        <div className="f-grp">
-          <label>Preferred Date <span>*</span></label>
-          <input type="date" value={form.date} onChange={upd('date')} required min={new Date().toISOString().split('T')[0]}/>
-        </div>
-      </div>
-      <button type="submit" className="btn-submit" disabled={loading}>
-        {loading ? <><i className="fas fa-spinner fa-spin"></i> Submitting…</> : <><i className="fas fa-paper-plane"></i> Submit Booking</>}
-      </button>
-    </form>
+
+</div>
+
+<div className="f-row">
+
+<div className="f-grp">
+
+<label>Service Type</label>
+
+<select name="Service" required>
+
+<option value="">Select Service</option>
+
+<option>RO Repair</option>
+<option>RO Installation</option>
+<option>Filter Replacement</option>
+<option>EMC Package</option>
+<option>Water Softener</option>
+<option>Commercial all types of filters</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+<div className="f-grp">
+
+<label>Preferred Date</label>
+
+<input
+type="date"
+name="Preferred Date"
+required
+/>
+
+</div>
+
+</div>
+
+<button className="btn-submit" type="submit">
+<i className="fas fa-paper-plane"></i>
+Submit Booking
+</button>
+
+</form>
+
   );
 }
 
