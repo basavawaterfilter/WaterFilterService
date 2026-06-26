@@ -452,197 +452,107 @@ function ServiceModal({ service, onClose }) {
 //  BOOKING FORM
 // ════════════════════════════════════════════════
 function BookingForm() {
+  const [success, setSuccess] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   async function getLocation() {
-
-    if (!navigator.geolocation) {
-      alert("Geolocation not supported");
-      return;
-    }
-
+    if (!navigator.geolocation) { alert("Geolocation not supported"); return; }
     navigator.geolocation.getCurrentPosition(async (position) => {
-
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
-      );
-
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
       const data = await res.json();
-
       document.getElementById("address").value = data.display_name;
-
-    }, () => {
-      alert("Location permission denied");
-    });
-
+    }, () => { alert("Location permission denied"); });
   }
-  const [success, setSuccess] = React.useState(false);
-const [loading, setLoading] = React.useState(false);
 
-async function submit(e) {
-  e.preventDefault();
-  console.log("Submit function called");
-  setLoading(true);
-
-  const form = e.target;
-  const formData = new FormData(form);
-
-  try {
-
-    const response = await fetch(
-  "https://formsubmit.co/ajax/basavawaterfilter08@gmail.com",
-  {
-    method: "POST",
-    headers: {
-      Accept: "application/json"
-    },
-    body: formData
-  }
-);
-if (response.ok) {
-
-  setSuccess(true);
-
-  form.reset();
-
-  setTimeout(() => {
-    setSuccess(false);
-  }, 3000);
-
-} else {
-
-      alert("Something went wrong. Please try again.");
-
+  async function submit(e) {
+    e.preventDefault(); // ← FIRST LINE, always
+    setLoading(true);
+    const form = e.target;
+    const formData = new FormData(form);
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/basavawaterfilter08@gmail.com", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData
+      });
+      if (response.ok) {
+        setSuccess(true);
+        form.reset();
+        setTimeout(() => setSuccess(false), 5000);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      alert("Network Error! Please check your connection.");
     }
-
-  } catch (err) {
-
-    alert("Network Error!");
-
+    setLoading(false);
   }
 
-  setLoading(false);
-}
-if (success) {
+  if (success) {
+    return (
+      <div className="form-ok">
+        <i className="fas fa-check-circle"></i>
+        <strong>Booking Submitted Successfully!</strong>
+        <p>Thank you for booking.</p>
+        <p>We will contact you within 30 minutes.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="form-ok">
-      <i className="fas fa-check-circle"></i>
-      <strong>Booking Submitted Successfully!</strong>
-      <p>Thank you for booking.</p>
-      <p>We will contact you within 30 minutes.</p>
-    </div>
-  );
-}
-  return (
+    <form className="bk-form" onSubmit={submit}>
+      {/* These hidden fields prevent formsubmit.co from redirecting */}
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New Booking - Basava Water Filter" />
 
-<form
-  className="bk-form"
-  onSubmit={submit}
->
+      <div className="f-row">
+        <div className="f-grp">
+          <label>Full Name <span>*</span></label>
+          <input type="text" name="Name" placeholder="Your full name" required />
+        </div>
+        <div className="f-grp">
+          <label>Phone Number <span>*</span></label>
+          <input type="tel" name="Phone" placeholder="10-digit mobile" pattern="[0-9]{10}" required />
+        </div>
+      </div>
 
-<div className="f-row">
+      <div className="f-grp">
+        <label>Address <span>*</span></label>
+        <div style={{display:'flex',gap:'10px'}}>
+          <input id="address" type="text" name="Address" placeholder="Full address" style={{flex:1}} required />
+          <button type="button" onClick={getLocation}>📍</button>
+        </div>
+      </div>
 
-<div className="f-grp">
-<label>Full Name <span>*</span></label>
-<input
-type="text"
-name="Name"
-placeholder="Your full name"
-required
-/>
-</div>
+      <div className="f-row">
+        <div className="f-grp">
+          <label>Service Type</label>
+          <select name="Service" required>
+            <option value="">Select Service</option>
+            <option>RO Repair</option>
+            <option>RO Installation</option>
+            <option>Filter Replacement</option>
+            <option>EMC Package</option>
+            <option>Water Softener</option>
+            <option>Commercial all types of filters</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div className="f-grp">
+          <label>Preferred Date</label>
+          <input type="date" name="Preferred Date" required />
+        </div>
+      </div>
 
-<div className="f-grp">
-<label>Phone Number <span>*</span></label>
-<input
-type="tel"
-name="Phone"
-placeholder="10-digit mobile"
-pattern="[0-9]{10}"
-required
-/>
-</div>
-
-</div>
-
-<div className="f-grp">
-
-<label>Address <span>*</span></label>
-
-<div style={{display:'flex',gap:'10px'}}>
-
-<input
-id="address"
-type="text"
-name="Address"
-placeholder="Full address"
-style={{flex:1}}
-required
-/>
-
-<button
-type="button"
-onClick={getLocation}
->
-📍
-</button>
-
-</div>
-
-</div>
-
-<div className="f-row">
-
-<div className="f-grp">
-
-<label>Service Type</label>
-
-<select name="Service" required>
-
-<option value="">Select Service</option>
-
-<option>RO Repair</option>
-<option>RO Installation</option>
-<option>Filter Replacement</option>
-<option>EMC Package</option>
-<option>Water Softener</option>
-<option>Commercial all types of filters</option>
-<option>Other</option>
-
-</select>
-
-</div>
-
-<div className="f-grp">
-
-<label>Preferred Date</label>
-
-<input
-type="date"
-name="Preferred Date"
-required
-/>
-
-</div>
-
-</div>
-
-<button className="btn-submit" type="submit" disabled={loading}>
-  {loading ? (
-    <>
-      <i className="fas fa-spinner fa-spin"></i> Submitting...
-    </>
-  ) : (
-    <>
-      <i className="fas fa-paper-plane"></i> Submit Booking
-    </>
-  )}
-</button>
-
-</form>
-
+      <button className="btn-submit" type="submit" disabled={loading}>
+        {loading
+          ? <><i className="fas fa-spinner fa-spin"></i> Submitting...</>
+          : <><i className="fas fa-paper-plane"></i> Submit Booking</>
+        }
+      </button>
+    </form>
   );
 }
 
