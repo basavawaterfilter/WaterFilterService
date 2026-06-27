@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
-/* ── RESET & TOKENS ──────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 :root{
@@ -20,334 +19,405 @@ html{scroll-behavior:smooth}
   --r:14px;--rs:8px;
   --bg:#fff;--text:#1a1a2e;--shadow-light:#f1f5f9;
 }
-
-body.dark-mode {
+body.dark-mode{
   --bg:#0f172a;--text:#e2e8f0;--off:#1e293b;--muted:#cbd5e1;--bdr:#334155;--shadow-light:#1e293b;
 }
-
-body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden;transition:background .3s,color .3s}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--bg);
+  /* CRITICAL: prevent horizontal scroll on ALL devices */
+  overflow-x:hidden;
+  width:100%;
+  transition:background .3s,color .3s
+}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
 img{max-width:100%;display:block}
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
 
-/* ── UTILITIES ───────────────────────────────────────── */
+/* UTILITIES */
 .eyebrow{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--B);background:var(--BL);padding:5px 14px;border-radius:20px;margin-bottom:14px}
 .eyebrow.lt{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9)}
-.sec-hd{text-align:center;margin-bottom:52px}
-.sec-hd h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;color:var(--text);line-height:1.15}
+.sec-hd{text-align:center;margin-bottom:48px}
+.sec-hd h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--text);line-height:1.15}
 .sec-hd.lt h2{color:#fff}
 .sec-sub{color:var(--muted);margin-top:10px;font-size:.93rem}
 
-/* ── HEADER ──────────────────────────────────────────── */
-#hdr{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr);transition:box-shadow .3s;background:var(--bg)}
+/* HEADER */
+#hdr{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr);transition:box-shadow .3s}
 #hdr.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.10)}
-.hdr-in{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;max-width:1180px;margin:0 auto;gap:18px}
-.brand{display:flex;align-items:center;gap:11px;cursor:pointer}
-.brand-icon{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--B),var(--C));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;flex-shrink:0;transition:transform .2s}
+.hdr-in{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;max-width:1180px;margin:0 auto;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;cursor:pointer;min-width:0;flex:1}
+.brand-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--B),var(--C));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;transition:transform .2s}
 .brand:hover .brand-icon{transform:scale(1.07) rotate(-5deg)}
-.brand-name{display:block;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1.05rem;color:var(--BD);line-height:1.15}
-.brand-sub{display:block;font-size:.65rem;color:var(--muted)}
-.desk-nav{display:flex;gap:28px}
-.desk-nav a{font-size:.9rem;font-weight:600;color:var(--text);position:relative;padding-bottom:2px;transition:color .2s;cursor:pointer}
+.brand-name{display:block;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:.92rem;color:var(--BD);line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-sub{display:block;font-size:.58rem;color:var(--muted)}
+.desk-nav{display:flex;gap:22px}
+.desk-nav a{font-size:.88rem;font-weight:600;color:var(--text);position:relative;padding-bottom:2px;transition:color .2s;cursor:pointer}
 .desk-nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--B);border-radius:2px;transition:width .25s}
 .desk-nav a:hover{color:var(--B)}
 .desk-nav a:hover::after{width:100%}
-.hdr-right{display:flex;align-items:center;gap:12px}
-.btn-call{display:flex;align-items:center;gap:7px;background:var(--BL);color:var(--B);padding:9px 16px;border-radius:50px;font-size:.83rem;font-weight:700;transition:all .2s;white-space:nowrap;border:none;cursor:pointer}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.btn-call{display:flex;align-items:center;gap:6px;background:var(--BL);color:var(--B);padding:8px 14px;border-radius:50px;font-size:.8rem;font-weight:700;transition:all .2s;white-space:nowrap;border:none;cursor:pointer}
 .btn-call:hover{background:var(--B);color:#fff}
-.btn-wa{display:flex;align-items:center;gap:7px;background:#25d366;color:#fff;padding:9px 16px;border-radius:50px;font-size:.83rem;font-weight:700;transition:all .2s;white-space:nowrap;border:none;cursor:pointer}
+.btn-wa{display:flex;align-items:center;gap:6px;background:#25d366;color:#fff;padding:8px 14px;border-radius:50px;font-size:.8rem;font-weight:700;transition:all .2s;white-space:nowrap;border:none;cursor:pointer}
 .btn-wa:hover{background:#128c7e}
-.theme-toggle{display:flex;align-items:center;gap:8px;background:var(--off);padding:8px 14px;border-radius:50px;border:none;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--text);transition:all .2s}
+.theme-toggle{display:flex;align-items:center;gap:7px;background:var(--off);padding:8px 12px;border-radius:50px;border:none;cursor:pointer;font-size:.87rem;font-weight:600;color:var(--text);transition:all .2s}
 .theme-toggle:hover{background:var(--bdr)}
-.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
-.burger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;flex-shrink:0}
+.burger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
 .mob-nav{display:none;flex-direction:column;background:var(--bg);border-top:1px solid var(--bdr)}
 .mob-nav.open{display:flex}
-.mob-nav a{display:flex;align-items:center;gap:12px;padding:14px 24px;font-weight:600;font-size:.97rem;color:var(--text);border-bottom:1px solid var(--shadow-light);cursor:pointer;transition:all .2s}
+.mob-nav a{display:flex;align-items:center;gap:12px;padding:14px 18px;font-weight:600;font-size:.95rem;color:var(--text);border-bottom:1px solid var(--shadow-light);cursor:pointer;transition:all .2s}
 .mob-nav a:hover{color:var(--B);background:var(--off)}
-.mob-nav-btns{display:flex;gap:10px;padding:12px 18px}
+.mob-nav-btns{display:flex;gap:8px;padding:12px 14px 16px}
 .mob-nav-btns .btn-call,.mob-nav-btns .btn-wa{flex:1;justify-content:center}
 
-/* ── HERO ─────────────────────────────────────────────── */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:80px;overflow:hidden}
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:70px;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#001245 0%,#004bb8 55%,#006a8e 100%)}
-.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,15,60,.88) 0%,rgba(0,60,150,.65) 60%,rgba(0,100,120,.4) 100%)}
-.hero-content{position:relative;z-index:2;padding:60px 60px 100px;max-width:680px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9);padding:7px 16px;border-radius:50px;font-size:.8rem;font-weight:600;margin-bottom:22px;backdrop-filter:blur(4px)}
-.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.4rem,6vw,4.5rem);font-weight:800;color:#fff;line-height:1.05;margin-bottom:12px;letter-spacing:-1px}
-.hero-sub{font-size:clamp(1rem,2vw,1.3rem);color:rgba(255,255,255,.78);margin-bottom:28px}
-.hero-checks{display:flex;flex-wrap:wrap;gap:12px 22px;margin-bottom:38px}
-.hero-checks li{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.9);font-size:.95rem;font-weight:500}
+.hero-content{position:relative;z-index:2;padding:50px 18px 110px;width:100%;max-width:680px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.9);padding:7px 14px;border-radius:50px;font-size:.76rem;font-weight:600;margin-bottom:18px;backdrop-filter:blur(4px)}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,6.5vw,4.5rem);font-weight:800;color:#fff;line-height:1.05;margin-bottom:12px;letter-spacing:-1px}
+.hero-sub{font-size:clamp(.9rem,2.5vw,1.3rem);color:rgba(255,255,255,.78);margin-bottom:22px}
+.hero-checks{display:flex;flex-wrap:wrap;gap:10px 16px;margin-bottom:28px}
+.hero-checks li{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.9);font-size:.88rem;font-weight:500}
 .hero-checks li i{color:#4ade80}
-.hero-acts{display:flex;flex-wrap:wrap;gap:14px}
-.btn-hp{display:inline-block;background:var(--B);color:#fff;padding:15px 38px;border-radius:50px;font-weight:700;font-size:.97rem;box-shadow:0 4px 18px rgba(0,87,184,.45);transition:background .2s,transform .15s;border:none;cursor:pointer}
+.hero-acts{display:flex;flex-wrap:wrap;gap:12px}
+.btn-hp{display:inline-block;background:var(--B);color:#fff;padding:13px 30px;border-radius:50px;font-weight:700;font-size:.93rem;box-shadow:0 4px 18px rgba(0,87,184,.45);transition:background .2s,transform .15s;border:none;cursor:pointer}
 .btn-hp:hover{background:var(--BD);transform:translateY(-2px)}
-.btn-ho{display:inline-flex;align-items:center;gap:8px;border:2px solid rgba(255,255,255,.6);color:#fff;padding:13px 32px;border-radius:50px;font-weight:700;font-size:.97rem;transition:all .2s;background:none;cursor:pointer}
+.btn-ho{display:inline-flex;align-items:center;gap:8px;border:2px solid rgba(255,255,255,.6);color:#fff;padding:11px 26px;border-radius:50px;font-weight:700;font-size:.93rem;transition:all .2s;background:none;cursor:pointer}
 .btn-ho:hover{background:rgba(255,255,255,.14);border-color:#fff}
 .hero-wave{position:absolute;bottom:0;left:0;right:0;z-index:1;line-height:0}
-.hero-wave svg{width:100%;height:60px}
+.hero-wave svg{width:100%;height:50px}
 
-/* ── WHY CHOOSE US ───────────────────────────────────── */
-.why-sec{padding:96px 0;background:var(--bg)}
-.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.why-card{background:var(--off);border:1.5px solid var(--bdr);border-radius:var(--r);padding:32px 22px;text-align:center;transition:transform .25s,box-shadow .25s,border-color .25s}
+/* WHY */
+.why-sec{padding:80px 0;background:var(--bg)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.why-card{background:var(--off);border:1.5px solid var(--bdr);border-radius:var(--r);padding:26px 16px;text-align:center;transition:transform .25s,box-shadow .25s,border-color .25s}
 .why-card:hover{transform:translateY(-6px);box-shadow:var(--shl);border-color:var(--B)}
-.why-icon{width:58px;height:58px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.45rem;color:#fff;margin:0 auto 18px}
+.why-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;margin:0 auto 14px}
 .ic1{background:linear-gradient(135deg,#0057b8,#00b4d8)}
 .ic2{background:linear-gradient(135deg,#00a896,#00cfb4)}
 .ic3{background:linear-gradient(135deg,#0ea5e9,#38bdf8)}
 .ic4{background:linear-gradient(135deg,#f59e0b,#fcd34d)}
-.why-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px}
-.why-card p{font-size:.88rem;color:var(--muted);line-height:1.7}
+.why-card h3{font-family:'Space Grotesk',sans-serif;font-size:.98rem;font-weight:700;margin-bottom:8px}
+.why-card p{font-size:.83rem;color:var(--muted);line-height:1.7}
 
-/* ── SERVICES ────────────────────────────────────────── */
-.svc-sec{padding:96px 0;background:var(--off)}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+/* SERVICES */
+.svc-sec{padding:80px 0;background:var(--off)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .svc-card{background:var(--bg);border-radius:var(--r);border:1.5px solid var(--bdr);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;cursor:pointer}
 .svc-card:hover{transform:translateY(-6px);box-shadow:var(--shl)}
-.svc-img{position:relative;height:260px;background:linear-gradient(135deg,var(--BL),#cce0ff);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.svc-img{position:relative;height:210px;background:linear-gradient(135deg,var(--BL),#cce0ff);overflow:hidden;display:flex;align-items:center;justify-content:center}
 .dark-mode .svc-img{background:linear-gradient(135deg,#1e3a5f,#2c5aa0)}
-.svc-img-icon{font-size:3.5rem;color:var(--B);opacity:.6}
-.svc-body{padding:22px;flex:1;display:flex;flex-direction:column}
-.svc-body h3{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;color:var(--text)}
-.svc-price{font-size:.95rem;font-weight:700;color:var(--B);margin-bottom:12px}
-.svc-desc{font-size:.85rem;color:var(--muted);margin-bottom:14px;flex:1}
-.btn-learn{display:block;text-align:center;background:var(--B);color:#fff;padding:11px;border-radius:var(--rs);font-weight:700;font-size:.9rem;transition:background .2s,transform .15s;border:none;cursor:pointer}
-.btn-learn:hover{background:var(--BD);transform:translateY(-1px)}
+.svc-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.svc-body h3{font-family:'Space Grotesk',sans-serif;font-size:.97rem;font-weight:700;margin-bottom:7px;color:var(--text)}
+.svc-price{font-size:.88rem;font-weight:700;color:var(--B);margin-bottom:9px}
+.svc-desc{font-size:.82rem;color:var(--muted);margin-bottom:11px;flex:1}
+.btn-learn{display:block;text-align:center;background:var(--B);color:#fff;padding:10px;border-radius:var(--rs);font-weight:700;font-size:.87rem;transition:background .2s;border:none;cursor:pointer}
+.btn-learn:hover{background:var(--BD)}
 
-/* ── SERVICE MODAL ───────────────────────────────────── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,10,40,.65);backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,10,40,.65);backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:14px;opacity:0;pointer-events:none;transition:opacity .3s}
 .modal-overlay.open{opacity:1;pointer-events:auto}
-.modal{background:var(--bg);border-radius:20px;padding:40px;width:100%;max-width:600px;box-shadow:0 24px 64px rgba(0,0,0,.3);position:relative;animation:modalIn .3s ease;max-height:90vh;overflow-y:auto}
+.modal{background:var(--bg);border-radius:18px;padding:24px 18px;width:100%;max-width:600px;box-shadow:0 24px 64px rgba(0,0,0,.3);position:relative;animation:modalIn .3s ease;max-height:92vh;overflow-y:auto}
 @keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--off);border:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:var(--muted);transition:all .2s}
-.modal-close:hover{background:var(--bdr);color:var(--text)}
-.modal h2{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:16px;color:var(--text)}
-.modal-price{font-size:1.2rem;color:var(--B);font-weight:700;margin-bottom:20px}
-.modal-section{margin-bottom:24px}
-.modal-section h3{font-family:'Space Grotesk',sans-serif;font-weight:700;margin-bottom:12px;color:var(--text);font-size:1.05rem}
-.modal-section ul{display:flex;flex-direction:column;gap:8px}
-.modal-section li{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;color:var(--muted);line-height:1.5}
-.modal-section li i{color:var(--T);font-size:.85rem;margin-top:2px;flex-shrink:0}
-.modal-actions{display:flex;gap:12px;margin-top:28px}
-.btn-primary-modal{flex:1;padding:14px;background:linear-gradient(135deg,var(--B),var(--C));color:#fff;border:none;border-radius:var(--rs);font-weight:700;cursor:pointer;transition:opacity .2s}
+.modal-close{position:absolute;top:13px;right:13px;background:var(--off);border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;color:var(--muted)}
+.modal-close:hover{background:var(--bdr)}
+.modal h2{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:800;margin-bottom:10px;color:var(--text);padding-right:36px}
+.modal-price{font-size:1.05rem;color:var(--B);font-weight:700;margin-bottom:14px}
+.modal-section{margin-bottom:18px}
+.modal-section h3{font-family:'Space Grotesk',sans-serif;font-weight:700;margin-bottom:9px;color:var(--text);font-size:.95rem}
+.modal-section ul{display:flex;flex-direction:column;gap:7px}
+.modal-section li{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;color:var(--muted);line-height:1.5}
+.modal-section li i{color:var(--T);font-size:.8rem;margin-top:2px;flex-shrink:0}
+.modal-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn-primary-modal{flex:1;min-width:130px;padding:13px;background:linear-gradient(135deg,var(--B),var(--C));color:#fff;border:none;border-radius:var(--rs);font-weight:700;cursor:pointer;font-size:.9rem;text-align:center}
 .btn-primary-modal:hover{opacity:.9}
-.btn-close-modal{flex:1;padding:14px;background:var(--off);color:var(--text);border:1.5px solid var(--bdr);border-radius:var(--rs);font-weight:700;cursor:pointer;transition:all .2s}
+.btn-close-modal{flex:1;min-width:130px;padding:13px;background:var(--off);color:var(--text);border:1.5px solid var(--bdr);border-radius:var(--rs);font-weight:700;cursor:pointer;font-size:.9rem}
 .btn-close-modal:hover{border-color:var(--B)}
 
-/* ── TIMINGS DISPLAY ─────────────────────────────────── */
-.timings-banner{background:linear-gradient(135deg,var(--B),var(--C));color:#fff;padding:20px 0;margin-bottom:40px;border-radius:var(--r)}
-.timings-content{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:center}
-.timings-text h3{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1.3rem;margin-bottom:6px}
-.timings-text p{font-size:.9rem;opacity:.9}
-.timings-hours{display:flex;flex-direction:column;gap:6px;font-size:.85rem}
-.timings-hours strong{opacity:.8}
+/* TIMINGS */
+.timings-banner{background:linear-gradient(135deg,var(--B),var(--C));color:#fff;padding:18px 16px;margin-bottom:36px;border-radius:var(--r)}
+.timings-content{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:center}
+.timings-text h3{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:4px}
+.timings-text p{font-size:.84rem;opacity:.9}
+.timings-hours{display:flex;flex-direction:column;gap:5px;font-size:.82rem}
 
-/* ── PROCESS ─────────────────────────────────────────── */
-.proc-sec{padding:96px 0;background:linear-gradient(135deg,#001245 0%,#0057b8 100%)}
-.proc-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
-.proc-step{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.2);border-radius:var(--r);padding:32px 24px;width:185px;text-align:center;position:relative;backdrop-filter:blur(4px);transition:background .25s,transform .2s}
+/* PROCESS */
+.proc-sec{padding:80px 0;background:linear-gradient(135deg,#001245 0%,#0057b8 100%)}
+.proc-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.proc-step{background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.2);border-radius:var(--r);padding:26px 16px;width:165px;text-align:center;position:relative;backdrop-filter:blur(4px);transition:background .25s,transform .2s}
 .proc-step:hover{background:rgba(255,255,255,.16);transform:translateY(-4px)}
-.proc-n{position:absolute;top:-13px;left:50%;transform:translateX(-50%);width:26px;height:26px;background:var(--C);color:var(--BD);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800}
-.proc-icon{font-size:1.9rem;color:rgba(255,255,255,.85);margin-bottom:12px}
-.proc-step h4{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:.95rem;font-weight:700;margin-bottom:6px}
-.proc-step p{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.5}
-.proc-arr{color:rgba(255,255,255,.35);font-size:1.1rem}
+.proc-n{position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:24px;height:24px;background:var(--C);color:var(--BD);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:800}
+.proc-icon{font-size:1.7rem;color:rgba(255,255,255,.85);margin-bottom:9px}
+.proc-step h4{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:.88rem;font-weight:700;margin-bottom:4px}
+.proc-step p{font-size:.74rem;color:rgba(255,255,255,.6);line-height:1.5}
+.proc-arr{color:rgba(255,255,255,.35);font-size:.95rem}
 
-/* ── BOOKING FORM ────────────────────────────────────── */
-.book-sec{padding:96px 0;background:var(--bg)}
-.book-wrap{display:grid;grid-template-columns:1fr 1.7fr;gap:64px;align-items:start}
-.book-info h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;margin-bottom:16px}
-.book-info p{color:var(--muted);line-height:1.8;margin-bottom:28px;font-size:.93rem}
-.book-contacts{display:flex;flex-direction:column;gap:14px}
-.book-contacts a{display:flex;align-items:center;gap:12px;font-size:.92rem;font-weight:600;color:var(--B);transition:color .2s;cursor:pointer}
+/* BOOKING */
+.book-sec{padding:80px 0;background:var(--bg)}
+.book-wrap{display:grid;grid-template-columns:1fr 1.7fr;gap:52px;align-items:start}
+.book-info h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.35rem,2.5vw,2rem);font-weight:800;margin-bottom:13px}
+.book-info p{color:var(--muted);line-height:1.8;margin-bottom:22px;font-size:.9rem}
+.book-contacts{display:flex;flex-direction:column;gap:12px}
+.book-contacts a{display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;color:var(--B);transition:color .2s;cursor:pointer;word-break:break-word}
 .book-contacts a:hover{color:var(--BD)}
-.bk-form{background:var(--off);border-radius:var(--r);padding:38px;box-shadow:var(--shl);border:1.5px solid var(--bdr)}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.f-grp{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
-.f-grp label{font-size:.82rem;font-weight:600;color:var(--text)}
+.bk-form{background:var(--off);border-radius:var(--r);padding:28px 20px;box-shadow:var(--shl);border:1.5px solid var(--bdr)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.f-grp{display:flex;flex-direction:column;gap:5px;margin-bottom:15px}
+.f-grp label{font-size:.79rem;font-weight:600;color:var(--text)}
 .f-grp label span{color:#ef4444}
-.f-grp input,.f-grp select,.f-grp textarea{padding:12px 13px;border:1.5px solid var(--bdr);border-radius:var(--rs);font-size:.9rem;font-family:'Inter',sans-serif;color:var(--text);transition:border-color .2s,box-shadow .2s;background:var(--bg)}
+.f-grp input,.f-grp select,.f-grp textarea{padding:11px 11px;border:1.5px solid var(--bdr);border-radius:var(--rs);font-size:.87rem;font-family:'Inter',sans-serif;color:var(--text);transition:border-color .2s,box-shadow .2s;background:var(--bg);width:100%}
 .f-grp input:focus,.f-grp select:focus{outline:none;border-color:var(--B);box-shadow:0 0 0 3px rgba(0,87,184,.12)}
-.btn-submit{width:100%;padding:15px;background:linear-gradient(135deg,var(--B),var(--C));color:#fff;border:none;border-radius:var(--rs);font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:opacity .2s,transform .15s;box-shadow:0 4px 18px rgba(0,87,184,.3)}
+.btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--B),var(--C));color:#fff;border:none;border-radius:var(--rs);font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:opacity .2s,transform .15s;box-shadow:0 4px 18px rgba(0,87,184,.3)}
 .btn-submit:hover{opacity:.9;transform:translateY(-1px)}
 .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.form-ok{margin-top:20px;padding:20px 22px;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:var(--rs);text-align:center;color:#065f46}
+.form-ok{padding:22px 16px;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:var(--rs);text-align:center;color:#065f46}
 .form-ok i{font-size:2rem;color:#10b981;margin-bottom:8px;display:block}
+.form-ok strong{display:block;margin-bottom:6px;font-size:1rem}
 
-/* ── REVIEWS ─────────────────────────────────────────── */
-.rev-sec{padding:96px 0;background:var(--bg)}
-.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.rev-card{background:var(--off);border:1.5px solid var(--bdr);border-radius:var(--r);padding:26px 22px;transition:transform .25s,box-shadow .25s}
+/* REVIEWS */
+.rev-sec{padding:80px 0;background:var(--bg)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rev-card{background:var(--off);border:1.5px solid var(--bdr);border-radius:var(--r);padding:20px 16px;transition:transform .25s,box-shadow .25s}
 .rev-card:hover{transform:translateY(-5px);box-shadow:var(--shl)}
-.rv-top{display:flex;align-items:center;gap:13px;margin-bottom:14px}
-.rv-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;font-weight:800;color:#fff;flex-shrink:0}
-.rv-stars{color:#f59e0b;font-size:.9rem;margin-top:2px}
-.rv-g{margin-left:auto;color:#4285f4}
-.rev-card p{font-size:.88rem;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:12px}
-.rv-date{font-size:.76rem;color:#9ca3af}
+.rv-top{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.rv-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:#fff;flex-shrink:0}
+.rv-stars{color:#f59e0b;font-size:.87rem;margin-top:2px}
+.rev-card p{font-size:.85rem;color:var(--muted);line-height:1.7;font-style:italic}
 
-.gal-sec{padding:96px 0;background:var(--off)}
-.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:14px}
-.g-item{border-radius:var(--rs);overflow:hidden;aspect-ratio:3/2;background:linear-gradient(135deg,#d0e5ff,#b8d4f5);position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.g-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(0,18,69,.75) 0%,transparent 100%);color:#fff;font-size:.82rem;font-weight:600;padding:18px 13px 11px;transform:translateY(100%);transition:transform .3s}
-.vid-sec{padding:96px 0;background:linear-gradient(135deg,#001040 0%,#00346b 100%)}
-.vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.vid-card{border-radius:var(--r);overflow:hidden;cursor:pointer}
-
-.vid-thumb{position:relative;aspect-ratio:16/9;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.14);border-radius:var(--r);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.vid-play{width:60px;height:60px;background:rgba(0,87,184,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;transition:background .2s,transform .2s;padding-left:4px}
-.vid-card:hover .vid-play{background:var(--B);transform:scale(1.1)}
-.vid-title{position:absolute;bottom:12px;left:14px;color:#fff;font-size:.85rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-
-
-/* ── GALLERY ─────────────────────────────────────────── */
-.gal-sec{padding:96px 0;background:var(--off)}
-.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:14px}
+/* GALLERY */
+.gal-sec{padding:80px 0;background:var(--off)}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:11px}
 .g-item{border-radius:var(--rs);overflow:hidden;aspect-ratio:4/3;background:linear-gradient(135deg,#d0e5ff,#b8d4f5);position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .g-item.g-big{grid-column:1;grid-row:1/3;aspect-ratio:auto}
-.g-icon{font-size:3rem;color:#93bbef}
-.g-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(0,18,69,.75) 0%,transparent 100%);color:#fff;font-size:.82rem;font-weight:600;padding:18px 13px 11px;transform:translateY(100%);transition:transform .3s}
+.g-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(0,18,69,.75) 0%,transparent 100%);color:#fff;font-size:.79rem;font-weight:600;padding:14px 11px 9px;transform:translateY(100%);transition:transform .3s}
 .g-item:hover .g-label{transform:translateY(0)}
 
-/* ── VIDEO GALLERY ───────────────────────────────────── */
-.vid-sec{padding:96px 0;background:linear-gradient(135deg,#001040 0%,#00346b 100%)}
-.vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.vid-card{border-radius:var(--r);overflow:hidden;cursor:pointer}
+/* VIDEO */
+.vid-sec{padding:80px 0;background:linear-gradient(135deg,#001040 0%,#00346b 100%)}
+.vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.vid-card{border-radius:var(--r);overflow:hidden}
 .vid-thumb{position:relative;aspect-ratio:16/9;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.14);border-radius:var(--r);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.vid-play{width:60px;height:60px;background:rgba(0,87,184,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;transition:background .2s,transform .2s;padding-left:4px}
-.vid-card:hover .vid-play{background:var(--B);transform:scale(1.1)}
-.vid-title{position:absolute;bottom:12px;left:14px;color:#fff;font-size:.85rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-.vid-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:rgba(255,255,255,.85);font-size:.78rem;text-align:center;padding:16px;background:rgba(0,10,40,.5)}
-.vid-error i{font-size:1.4rem;color:#fca5a5}
+.vid-title{position:absolute;bottom:9px;left:11px;color:#fff;font-size:.8rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.vid-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:rgba(255,255,255,.85);font-size:.76rem;text-align:center;padding:14px;background:rgba(0,10,40,.5)}
+.vid-error i{font-size:1.3rem;color:#fca5a5}
 
-
-/* ── FAQ SECTION ─────────────────────────────────────── */
-.faq-sec{padding:96px 0;background:var(--off)}
-.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:1000px;margin:0 auto}
+/* FAQ */
+.faq-sec{padding:80px 0;background:var(--off)}
+.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;max-width:1000px;margin:0 auto}
 .faq-item{background:var(--bg);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden}
-.faq-question{padding:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;font-weight:600;color:var(--text)}
+.faq-question{padding:16px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;font-weight:600;color:var(--text);font-size:.89rem;gap:10px}
 .faq-question:hover{background:var(--off)}
-.faq-question i{color:var(--B);transition:transform .3s}
+.faq-question i{color:var(--B);transition:transform .3s;flex-shrink:0}
 .faq-item.active .faq-question{background:var(--BL)}
-.faq-item.active .faq-question i{transform:rotate(180deg);color:var(--B)}
-.faq-answer{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;color:var(--muted);font-size:.9rem;line-height:1.7}
-.faq-item.active .faq-answer{padding:0 20px 20px;max-height:500px}
+.faq-item.active .faq-question i{transform:rotate(180deg)}
+.faq-answer{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;color:var(--muted);font-size:.86rem;line-height:1.7}
+.faq-item.active .faq-answer{padding:0 14px 15px;max-height:500px}
 
-/* ── STATS ───────────────────────────────────────────── */
-.stats-sec{padding:72px 0;background:linear-gradient(135deg,var(--B),var(--C))}
+/* STATS */
+.stats-sec{padding:60px 0;background:linear-gradient(135deg,var(--B),var(--C))}
 .stats-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
-.stat-item{text-align:center;flex:1;min-width:150px;padding:20px}
-.stat-n{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:800;color:#fff;line-height:1}
-.stat-plus{font-size:2rem;font-weight:800;color:rgba(255,255,255,.7);vertical-align:top;margin-top:6px}
-.stat-item p{font-size:.84rem;color:rgba(255,255,255,.72);margin-top:8px;font-weight:600}
-.stat-div{width:1px;height:64px;background:rgba(255,255,255,.22)}
+.stat-item{text-align:center;flex:1;min-width:120px;padding:16px 10px}
+.stat-n{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:clamp(1.9rem,5vw,3.4rem);font-weight:800;color:#fff;line-height:1}
+.stat-plus{font-size:1.6rem;font-weight:800;color:rgba(255,255,255,.7);vertical-align:top;margin-top:4px}
+.stat-item p{font-size:.79rem;color:rgba(255,255,255,.72);margin-top:6px;font-weight:600}
+.stat-div{width:1px;height:54px;background:rgba(255,255,255,.22)}
 
-/* ── MAP ─────────────────────────────────────────────── */
-.map-sec{padding:96px 0;background:var(--bg)}
+/* MAP */
+.map-sec{padding:80px 0;background:var(--bg)}
 .map-box{border-radius:var(--r);overflow:hidden;box-shadow:var(--shl);border:1.5px solid var(--bdr)}
 
-/* ── CONTACT ─────────────────────────────────────────── */
-.contact-sec{padding:96px 0;background:var(--off)}
-.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.contact-card{background:var(--bg);border-radius:var(--r);padding:30px 20px;text-align:center;border:1.5px solid var(--bdr);box-shadow:var(--sh);transition:transform .25s,box-shadow .25s}
+/* CONTACT — supports 5 cards */
+.contact-sec{padding:80px 0;background:var(--off)}
+.contact-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.contact-card{background:var(--bg);border-radius:var(--r);padding:22px 12px;text-align:center;border:1.5px solid var(--bdr);box-shadow:var(--sh);transition:transform .25s,box-shadow .25s}
 .contact-card:hover{transform:translateY(-5px);box-shadow:var(--shl)}
-.cc-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin:0 auto 15px}
+.cc-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin:0 auto 11px}
 .cc-blue{background:var(--BL);color:var(--B)}
 .cc-green{background:#d1fae5;color:#16a34a}
 .cc-gold{background:#fef3c7;color:var(--G)}
 .cc-purple{background:#ede9fe;color:var(--P)}
-.contact-card h4{font-family:'Space Grotesk',sans-serif;font-weight:700;margin-bottom:10px;font-size:.97rem;color:var(--text)}
-.contact-card a{display:block;color:var(--B);font-weight:600;font-size:.88rem;margin-bottom:6px;word-break:break-word;transition:color .2s;cursor:pointer}
+.cc-pink{background:#fdf2f8;color:#e1306c}
+.contact-card h4{font-family:'Space Grotesk',sans-serif;font-weight:700;margin-bottom:7px;font-size:.88rem;color:var(--text)}
+.contact-card a{display:block;color:var(--B);font-weight:600;font-size:.81rem;margin-bottom:4px;word-break:break-word;transition:color .2s}
 .contact-card a:hover{color:var(--BD)}
-.contact-card p{font-size:.83rem;color:var(--muted);line-height:1.6}
+.contact-card p{font-size:.77rem;color:var(--muted);line-height:1.5}
 
-/* ── FOOTER ──────────────────────────────────────────── */
-.footer{background:#09111f;padding:56px 0 0}
-.footer-in{display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:48px;padding-bottom:48px;color:#fff}
-.ft-brand p{font-size:.86rem;color:rgba(255,255,255,.45);line-height:1.8;max-width:280px;margin-top:14px}
-.ft-col h5{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px}
-.ft-col a,.ft-col p{font-size:.86rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:10px;margin-bottom:10px;transition:color .2s;cursor:pointer}
+/* FOOTER */
+.footer{background:#09111f;padding:44px 0 0}
+.footer-in{display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:36px;padding-bottom:36px;color:#fff}
+.ft-brand p{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.8;max-width:280px;margin-top:11px}
+.ft-col h5{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px}
+.ft-col a,.ft-col p{font-size:.82rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:9px;margin-bottom:8px;transition:color .2s;cursor:pointer}
 .ft-col a:hover{color:#fff}
-.ft-col i{width:16px;color:rgba(255,255,255,.3)}
-.ft-btm{border-top:1px solid rgba(255,255,255,.07);padding:20px 24px;text-align:center}
-.ft-btm p{font-size:.8rem;color:rgba(255,255,255,.28)}
+.ft-col i{width:14px;color:rgba(255,255,255,.3);flex-shrink:0}
+.ft-btm{border-top:1px solid rgba(255,255,255,.07);padding:16px;text-align:center}
+.ft-btm p{font-size:.76rem;color:rgba(255,255,255,.28)}
 
-/* ── FLOATING BUTTONS ────────────────────────────────── */
-.fab-call,.fab-wa{position:fixed;bottom:24px;display:flex;align-items:center;gap:8px;padding:13px 20px;border-radius:50px;color:#fff;font-size:.9rem;font-weight:700;z-index:999;box-shadow:0 6px 24px rgba(0,0,0,.22);transition:transform .2s;cursor:pointer;border:none;text-decoration:none}
-.fab-call{left:24px;background:var(--B)}
-.fab-wa{right:24px;background:#25d366}
+/* ══════════════════════════════════════════════
+   FLOATING BUTTONS — THE KEY FIX
+   Use a wrapper that is positioned inside the
+   viewport so NEITHER button ever goes off-screen
+   ══════════════════════════════════════════════ */
+.fab-wrap{
+  position:fixed;
+  bottom:18px;
+  /* Anchor to left:0 right:0 so it uses viewport width */
+  left:0;
+  right:0;
+  /* Flexbox: one button on each edge */
+  display:flex;
+  justify-content:space-between;
+  /* Horizontal padding keeps buttons away from screen edges */
+  padding:0 14px;
+  z-index:999;
+  /* Children are clickable, wrapper is not */
+  pointer-events:none;
+}
+.fab-call,.fab-wa{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:11px 18px;
+  border-radius:50px;
+  color:#fff;
+  font-size:.85rem;
+  font-weight:700;
+  box-shadow:0 4px 18px rgba(0,0,0,.28);
+  transition:transform .2s;
+  cursor:pointer;
+  border:none;
+  text-decoration:none;
+  pointer-events:auto;
+  white-space:nowrap;
+  /* Prevent growing beyond content */
+  flex-shrink:0;
+}
+.fab-call{background:var(--B)}
+.fab-wa{background:#25d366}
 .fab-call:hover,.fab-wa:hover{transform:translateY(-3px)}
 
-/* ── SCROLL ANIM ─────────────────────────────────────── */
-.anim{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+/* SCROLL ANIM */
+.anim{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .anim.in{opacity:1;transform:none}
 
-/* ── RESPONSIVE ──────────────────────────────────────– */
-@media(max-width:1080px){
+/* ══════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ══════════════════════════════════════════════ */
+@media(max-width:1100px){
+  .contact-grid{grid-template-columns:repeat(3,1fr)}
   .svc-grid,.rev-grid{grid-template-columns:repeat(2,1fr)}
-  .contact-grid{grid-template-columns:repeat(2,1fr)}
   .faq-grid{grid-template-columns:1fr}
   .footer-in{grid-template-columns:1fr 1fr}
   .timings-content{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
 }
+
 @media(max-width:860px){
   .desk-nav,.hdr-right{display:none}
   .burger{display:flex}
-  .hero-content{padding:48px 28px 90px}
-  .book-wrap{grid-template-columns:1fr;gap:36px}
+  .hero-content{padding:40px 16px 100px}
+  .book-wrap{grid-template-columns:1fr;gap:24px}
   .stat-div{display:none}
   .footer-in{grid-template-columns:1fr}
+  .vid-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-grid{grid-template-columns:repeat(2,1fr)}
 }
+
 @media(max-width:600px){
+  /* ensure no horizontal overflow */
+  html,body{max-width:100vw;overflow-x:hidden}
+  .wrap{padding:0 12px}
+
+  /* hero */
+  .hero-acts{flex-direction:column;align-items:stretch}
+  .btn-hp,.btn-ho{width:100%;text-align:center;justify-content:center}
+
+  /* grids */
   .svc-grid,.rev-grid,.contact-grid{grid-template-columns:1fr}
-  .f-row{grid-template-columns:1fr}
-  .hero-acts{flex-direction:column}
-  .bk-form{padding:22px 16px}
-  .fab-call span,.fab-wa span{display:none}
-  .fab-call,.fab-wa{padding:15px;border-radius:50%;width:54px;height:54px;justify-content:center}
-  .modal{padding:24px}
+  .why-grid{grid-template-columns:1fr 1fr}
   .faq-grid{grid-template-columns:1fr}
+
+  /* gallery */
+  .gal-grid{grid-template-columns:1fr 1fr}
+  .g-item.g-big{grid-column:1/3;grid-row:auto;aspect-ratio:16/9}
+
+  /* form */
+  .bk-form{padding:18px 12px}
+  .f-row{grid-template-columns:1fr}
+
+  /* modal */
+  .modal{padding:18px 14px;border-radius:14px}
+  .modal h2{font-size:1.2rem}
+  .modal-actions{flex-direction:column}
+  .btn-primary-modal,.btn-close-modal{width:100%;min-width:unset}
+
+  /* timings */
+  .timings-content{grid-template-columns:1fr;gap:10px}
+  .timings-banner{padding:16px 12px}
+
+  /* process */
+  .proc-row{gap:6px}
+  .proc-step{width:130px;padding:20px 10px}
+  .proc-arr{display:none}
+
+  /* stats: 2x2 */
+  .stats-row{display:grid;grid-template-columns:1fr 1fr}
+  .stat-div{display:none}
+  .stat-item{padding:14px 8px}
+
+  /* footer */
+  .footer-in{gap:22px}
+  .ft-brand p{max-width:100%}
+
+  /* floating buttons on phone — still pill shape, fits screen */
+  .fab-wrap{
+    bottom:14px;
+    padding:0 12px;
+  }
+  .fab-call,.fab-wa{
+    padding:11px 16px;
+    font-size:.82rem;
+    border-radius:50px;
+  }
 }
-@media (max-width:768px){
 
-  .vid-grid{
-    grid-template-columns:1fr;
+/* Very small phones: icon circles */
+@media(max-width:380px){
+  .why-grid{grid-template-columns:1fr}
+  .hero h1{font-size:1.75rem}
+  .fab-call span,.fab-wa span{display:none}
+  .fab-call,.fab-wa{
+    padding:0;
+    width:48px;height:48px;
+    border-radius:50%;
+    justify-content:center;
+    gap:0;
+    font-size:1.1rem;
   }
-
-  .vid-thumb{
-    min-height:220px;
-  }
-
-  .vid-thumb video{
-    width:100%;
-    height:100%;
-    display:block;
-  }
-
 }
 </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
-
 <script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
+const { useState, useEffect, useRef } = React;
+
+const WA = "https://wa.me/919035347020?text=👋%20Hi%20Basava%20Water%20Filter%20Service%2C%0A%0A💧%20I%20need%20service%20for%20my%20RO%20water%20purifier.%0A%0A📅%20Please%20contact%20me%20to%20schedule%20a%20technician%20visit.%0A%0A🙏%20Thank%20you!";
 
 function useScrollAnim() {
   useEffect(() => {
     const obs = new IntersectionObserver(entries => {
-      entries.forEach((e,i) => {
+      entries.forEach(e => {
         if (e.isIntersecting) {
           const sibs = [...e.target.parentElement.querySelectorAll('.anim')];
-          const idx = sibs.indexOf(e.target);
-          setTimeout(() => e.target.classList.add('in'), idx * 80);
+          setTimeout(() => e.target.classList.add('in'), sibs.indexOf(e.target) * 80);
           obs.unobserve(e.target);
         }
       });
@@ -357,30 +427,24 @@ function useScrollAnim() {
   });
 }
 
-// ════════════════════════════════════════════════
-//  THEME TOGGLE
-// ════════════════════════════════════════════════
 function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') { setIsDark(true); document.body.classList.add('dark-mode'); }
+    if (localStorage.getItem('theme') === 'dark') { setIsDark(true); document.body.classList.add('dark-mode'); }
   }, []);
   function toggle() {
-    setIsDark(d => !d);
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    const next = !isDark;
+    setIsDark(next);
+    document.body.classList.toggle('dark-mode', next);
+    localStorage.setItem('theme', next ? 'dark' : 'light');
   }
   return (
-    <button className="theme-toggle" onClick={toggle} title={isDark ? 'Light Mode' : 'Dark Mode'}>
+    <button className="theme-toggle" onClick={toggle}>
       {isDark ? <><i className="fas fa-sun"></i> Day</> : <><i className="fas fa-moon"></i> Night</>}
     </button>
   );
 }
 
-// ════════════════════════════════════════════════
-//  COUNTER
-// ════════════════════════════════════════════════
 function Counter({ target }) {
   const [val, setVal] = useState(0);
   const ref = useRef();
@@ -390,11 +454,9 @@ function Counter({ target }) {
         obs.disconnect();
         const dur = 1800, start = performance.now();
         const tick = now => {
-          const p = Math.min((now-start)/dur, 1);
-          const e = 1-Math.pow(1-p,3);
-          setVal(Math.floor(e*target));
-          if (p<1) requestAnimationFrame(tick);
-          else setVal(target);
+          const p = Math.min((now-start)/dur,1);
+          setVal(Math.floor((1-Math.pow(1-p,3))*target));
+          if(p<1) requestAnimationFrame(tick); else setVal(target);
         };
         requestAnimationFrame(tick);
       }
@@ -405,40 +467,27 @@ function Counter({ target }) {
   return <span ref={ref} className="stat-n">{val.toLocaleString()}</span>;
 }
 
-// ════════════════════════════════════════════════
-//  SERVICE MODAL
-// ════════════════════════════════════════════════
 function ServiceModal({ service, onClose }) {
   if (!service) return null;
   return (
-    <div className={`modal-overlay ${service ? 'open' : ''}`} onClick={e => e.target.className.includes('modal-overlay') && onClose()}>
+    <div className="modal-overlay open" onClick={e => e.target.className.includes('modal-overlay') && onClose()}>
       <div className="modal">
         <button className="modal-close" onClick={onClose}><i className="fas fa-times"></i></button>
         <h2>{service.name}</h2>
         <div className="modal-price">{service.pricing}</div>
-        <p style={{color:'var(--muted)',marginBottom:20}}>{service.desc}</p>
-        
+        <p style={{color:'var(--muted)',marginBottom:14,fontSize:'.84rem'}}>{service.desc}</p>
         <div className="modal-section">
-          <h3><i className="fas fa-check-circle" style={{marginRight:8,color:'var(--T)'}}></i>What's Included</h3>
-          <ul>
-            {service.included?.map(item => <li key={item}><i className="fas fa-check"></i>{item}</li>)}
-          </ul>
+          <h3><i className="fas fa-check-circle" style={{marginRight:7,color:'var(--T)'}}></i>What's Included</h3>
+          <ul>{service.included?.map(i=><li key={i}><i className="fas fa-check"></i>{i}</li>)}</ul>
         </div>
-
         <div className="modal-section">
-          <h3><i className="fas fa-star" style={{marginRight:8,color:' var(--G)'}}></i>Benefits</h3>
-          <ul>
-            {service.benefits?.map(item => <li key={item}><i className="fas fa-award"></i>{item}</li>)}
-          </ul>
+          <h3><i className="fas fa-star" style={{marginRight:7,color:'var(--G)'}}></i>Benefits</h3>
+          <ul>{service.benefits?.map(i=><li key={i}><i className="fas fa-award"></i>{i}</li>)}</ul>
         </div>
-
         <div className="modal-section">
-          <h3><i className="fas fa-info-circle" style={{marginRight:8}}></i>Terms & Conditions</h3>
-          <ul>
-            {service.terms?.map(item => <li key={item}><i className="fas fa-circle" style={{fontSize:'.4rem'}}></i>{item}</li>)}
-          </ul>
+          <h3><i className="fas fa-info-circle" style={{marginRight:7}}></i>Terms & Conditions</h3>
+          <ul>{service.terms?.map(i=><li key={i}><i className="fas fa-circle" style={{fontSize:'.35rem'}}></i>{i}</li>)}</ul>
         </div>
-
         <div className="modal-actions">
           <a href="tel:+919035347020" className="btn-primary-modal"><i className="fas fa-phone"></i> Call to Book</a>
           <button className="btn-close-modal" onClick={onClose}><i className="fas fa-times"></i> Close</button>
@@ -448,87 +497,70 @@ function ServiceModal({ service, onClose }) {
   );
 }
 
-// ════════════════════════════════════════════════
-//  BOOKING FORM
-// ════════════════════════════════════════════════
 function BookingForm() {
-  const [success, setSuccess] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function getLocation() {
     if (!navigator.geolocation) { alert("Geolocation not supported"); return; }
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
-      const data = await res.json();
-      document.getElementById("address").value = data.display_name;
-    }, () => { alert("Location permission denied"); });
+    navigator.geolocation.getCurrentPosition(async pos => {
+      try {
+        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
+        const d = await r.json();
+        document.getElementById("address").value = d.display_name;
+      } catch { alert("Could not get address"); }
+    }, () => alert("Location permission denied"));
   }
 
   async function submit(e) {
-    e.preventDefault(); // ← FIRST LINE, always
+    e.preventDefault();
     setLoading(true);
     const form = e.target;
-    const formData = new FormData(form);
     try {
-      const response = await fetch("https://formsubmit.co/ajax/basavawaterfilter08@gmail.com", {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData
+      const res = await fetch("https://formsubmit.co/ajax/basavawaterfilter08@gmail.com", {
+        method:"POST", headers:{Accept:"application/json"}, body:new FormData(form)
       });
-      if (response.ok) {
-        setSuccess(true);
-        form.reset();
-        setTimeout(() => setSuccess(false), 5000);
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (err) {
-      alert("Network Error! Please check your connection.");
-    }
+      if (res.ok) { setSuccess(true); form.reset(); setTimeout(()=>setSuccess(false),7000); }
+      else alert("Something went wrong. Please try again.");
+    } catch { alert("Network Error!"); }
     setLoading(false);
   }
 
-  if (success) {
-    return (
-      <div className="form-ok">
-        <i className="fas fa-check-circle"></i>
-        <strong>Booking Submitted Successfully!</strong>
-        <p>Thank you for booking.</p>
-        <p>We will contact you within 30 minutes.</p>
-      </div>
-    );
-  }
+  if (success) return (
+    <div className="form-ok">
+      <i className="fas fa-check-circle"></i>
+      <strong>Booking Submitted Successfully!</strong>
+      <p>Thank you! We will contact you within 30 minutes.</p>
+    </div>
+  );
 
   return (
     <form className="bk-form" onSubmit={submit}>
-      {/* These hidden fields prevent formsubmit.co from redirecting */}
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_subject" value="New Booking - Basava Water Filter" />
-
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="hidden" name="_subject" value="New Booking - Basava Water Filter"/>
       <div className="f-row">
         <div className="f-grp">
           <label>Full Name <span>*</span></label>
-          <input type="text" name="Name" placeholder="Your full name" required />
+          <input type="text" name="Name" placeholder="Your full name" required/>
         </div>
         <div className="f-grp">
           <label>Phone Number <span>*</span></label>
-          <input type="tel" name="Phone" placeholder="10-digit mobile" pattern="[0-9]{10}" required />
+          <input type="tel" name="Phone" placeholder="10-digit mobile" pattern="[0-9]{10}" required/>
         </div>
       </div>
-
       <div className="f-grp">
-        <label>Address (Enter Your Location) <span>*</span></label>
-        <div style={{display:'flex',gap:'10px'}}>
-          <input id="address" type="text" name="Address" placeholder="Full address" style={{flex:1}} required />
-          <button type="button" onClick={getLocation}>📍</button>
+        <label>Address <span>*</span></label>
+        <div style={{display:'flex',gap:'8px'}}>
+          <input id="address" type="text" name="Address" placeholder="Your full address" style={{flex:1,minWidth:0}} required/>
+          <button type="button" onClick={getLocation}
+            style={{padding:'0 12px',background:'var(--BL)',border:'1.5px solid var(--bdr)',borderRadius:8,cursor:'pointer',fontSize:'1.1rem',flexShrink:0}}>
+            📍
+          </button>
         </div>
       </div>
-
       <div className="f-row">
         <div className="f-grp">
-          <label>Service Type</label>
+          <label>Service Type <span>*</span></label>
           <select name="Service" required>
             <option value="">Select Service</option>
             <option>RO Repair</option>
@@ -541,30 +573,65 @@ function BookingForm() {
           </select>
         </div>
         <div className="f-grp">
-          <label>Preferred Date</label>
-          <input type="date" name="Preferred Date" required />
+          <label>Preferred Date <span>*</span></label>
+          <input type="date" name="Preferred Date" required/>
         </div>
       </div>
-
       <button className="btn-submit" type="submit" disabled={loading}>
-        {loading
-          ? <><i className="fas fa-spinner fa-spin"></i> Submitting...</>
-          : <><i className="fas fa-paper-plane"></i> Submit Booking</>
-        }
+        {loading ? <><i className="fas fa-spinner fa-spin"></i> Submitting...</> : <><i className="fas fa-paper-plane"></i> Submit Booking</>}
       </button>
     </form>
   );
 }
 
-// ════════════════════════════════════════════════
-//  HEADER
-// ════════════════════════════════════════════════
+function FAQItem({ question, answer }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`faq-item ${open?'active':''}`}>
+      <div className="faq-question" onClick={()=>setOpen(!open)}>
+        <span>{question}</span>
+        <i className={`fas fa-chevron-${open?'up':'down'}`}></i>
+      </div>
+      <div className="faq-answer"><p>{answer}</p></div>
+    </div>
+  );
+}
+
+function VideoCard({ label, src }) {
+  const [error, setError] = useState(null);
+  function handleError(e) {
+    const m={1:'Loading aborted',2:'Network error',3:'Decode error',4:'File not found'};
+    const me=e.target.error;
+    setError(me?(m[me.code]||'Unknown error'):'Failed to load');
+    console.error(`[Video] "${src}" — ${error}`);
+  }
+  return (
+    <div className="vid-card anim">
+      <div className="vid-thumb">
+        {!error ? (
+          <video controls playsInline muted preload="metadata"
+            style={{width:'100%',height:'100%',objectFit:'contain',display:'block',backgroundColor:'#000'}}
+            onError={handleError}>
+            <source src={src} type="video/mp4"/>
+          </video>
+        ) : (
+          <div className="vid-error">
+            <i className="fas fa-triangle-exclamation"></i>
+            <span>Video unavailable<br/>{error}</span>
+          </div>
+        )}
+        <div className="vid-title">{label}</div>
+      </div>
+    </div>
+  );
+}
+
 function Header({ onNav }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobOpen, setMobOpen] = useState(false);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', h, { passive: true });
+    window.addEventListener('scroll', h, {passive:true});
     return () => window.removeEventListener('scroll', h);
   }, []);
   const navTo = id => { onNav(id); setMobOpen(false); };
@@ -573,7 +640,10 @@ function Header({ onNav }) {
       <div className="hdr-in">
         <div className="brand" onClick={()=>navTo('home')}>
           <div className="brand-icon"><i className="fas fa-tint"></i></div>
-          <div><span className="brand-name">Basava Water Filter Service</span><span className="brand-sub">RO Experts · Bengaluru</span></div>
+          <div>
+            <span className="brand-name">Basava Water Filter</span>
+            <span className="brand-sub">RO Experts · Bengaluru</span>
+          </div>
         </div>
         <nav className="desk-nav">
           {['home','services','booking','reviews','faq','contact'].map(id=>(
@@ -582,158 +652,77 @@ function Header({ onNav }) {
         </nav>
         <div className="hdr-right">
           <a href="tel:+919035347020" className="btn-call"><i className="fas fa-phone"></i> 9035347020</a>
-          <a href="https://wa.me/919035347020?text=👋%20Hi%20Basava%20Water%20Filter%20Service,%0A%0A💧%20I%20need%20service%20for%20my%20RO%20water%20purifier.%0A%0A📅%20Please%20contact%20me%20to%20schedule%20a%20technician%20visit%20at%20a%20convenient%20time.%0A%0A💰%20Kindly%20let%20me%20know:%0A•%20Service%20charges%0A•%20Earliest%20available%20appointment%0A%0A🙏%20Thank%20you!%20I%20look%20forward%20to%20your%20response." className="btn-wa" target="_blank"><i className="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href={WA} className="btn-wa" target="_blank" rel="noopener"><i className="fab fa-whatsapp"></i> WhatsApp</a>
           <ThemeToggle/>
         </div>
-        <button className="burger" onClick={()=>setMobOpen(o=>!o)}>
+        <button className="burger" onClick={()=>setMobOpen(o=>!o)} aria-label="Menu">
           <span/><span/><span/>
         </button>
       </div>
       <div className={`mob-nav ${mobOpen?'open':''}`}>
-        {['home','services','booking','reviews','faq','contact'].map(id=>(
-          <a key={id} onClick={()=>navTo(id)}><i className={`fas fa-${id==='home'?'home':id==='services'?'wrench':id==='booking'?'calendar':id==='reviews'?'star':id==='faq'?'question':'phone'}`}></i>{id.charAt(0).toUpperCase()+id.slice(1)}</a>
+        {[['home','home'],['services','wrench'],['booking','calendar'],['reviews','star'],['faq','question-circle'],['contact','phone']].map(([id,icon])=>(
+          <a key={id} onClick={()=>navTo(id)}><i className={`fas fa-${icon}`}></i>{id.charAt(0).toUpperCase()+id.slice(1)}</a>
         ))}
         <div className="mob-nav-btns">
           <a href="tel:+919035347020" className="btn-call"><i className="fas fa-phone"></i> Call</a>
-          <a href="https://wa.me/919035347020?text=👋%20Hi%20Basava%20Water%20Filter%20Service,%0A%0A💧%20I%20need%20service%20for%20my%20RO%20water%20purifier.%0A%0A📅%20Please%20contact%20me%20to%20schedule%20a%20technician%20visit%20at%20a%20convenient%20time.%0A%0A💰%20Kindly%20let%20me%20know:%0A•%20Service%20charges%0A•%20Earliest%20available%20appointment%0A%0A🙏%20Thank%20you!%20I%20look%20forward%20to%20your%20response." className="btn-wa" target="_blank"><i className="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href={WA} className="btn-wa" target="_blank" rel="noopener"><i className="fab fa-whatsapp"></i> WhatsApp</a>
         </div>
       </div>
     </header>
   );
 }
 
-// ════════════════════════════════════════════════
-//  MAIN APP
-// ════════════════════════════════════════════════
 function App() {
   useScrollAnim();
   const [selectedService, setSelectedService] = useState(null);
 
   const services = [
-    {
-  id:1,
-  image:"videos/A.png",
-  name:'All Type Of RO Repair Service',
-  icon:'fa-wrench',
-  pricing:'From ₹299',
-  desc:'Quick diagnosis and expert repair for all brands of RO water purifiers.',
-  included:['Leak detection & fixing','Motor & pump repair','Filter assessment','Water quality testing','Performance optimization','24/7 emergency support'],
-  benefits:['Certified technicians','Same-day service available','Genuine spare parts','30-day warranty on repairs','All brands supported','Professional guarantee'],
-  terms:['Service charge is for labor only','Spare parts cost additional','Free initial diagnosis','Warranty valid for 30 days']
-},
-{
-  id:2,
-  image:"videos/b.png",
-  name:'All Type Of RO Installation',
-  icon:'fa-tools',
-  pricing:'₹499 Install ',
-  desc:'New installation, relocation, and expert setup for all RO brands.',
-  included:['Complete system setup','Water quality testing','System programming & training','Pipe & electrical connections','UV lamp installation','Pump replacement if needed','Leak repair & fixings','3 months free maintenance'],
-  benefits:['Certified installation technicians','Same-day installation','Genuine spare parts','Professional warranty','All brands service','24/7 emergency support'],
-  terms:['Installation excludes plumbing items','Service charge is labor only','Not including filter costs','Free maintenance for 3 months']
-},
-{
-  id:3,
-  image:"videos/c.png",
-  name:'All Type Of Filter Replacement',
-  icon:'fa-filter',
-  pricing: 'Affordable Service',
-  desc:'Genuine filters & membranes for all RO brands with professional replacement.',
-  included:['Sediment filter replacement','Carbon filter replacement','RO membrane change','Post-filter replacement','System flushing & cleaning','Water quality check','Filter disposal'],
-  benefits:['Genuine pre-filters guaranteed','All filter types available','Expert replacement service','Quality water assured','Certified technicians','Warranty on filters'],
-  terms:['Pre-filter replacement service','RO membrane additional cost','Carbon & post-filters included','Labor cost as per service']
-},
-{
-  id:4,
-  image:"videos/d.png",
-  name:'All Type Of EMC Packages',
-  icon:'fa-calendar-check',
-  pricing:'Starting from ₹499/month',
-  desc:'Flexible maintenance plans with quarterly servicing and priority support.',
-  included:['Basic: Monthly filter cleaning','Premium: Quarterly full servicing','Annual: Comprehensive maintenance','Free emergency repair','Priority technician visit','Water quality monitoring'],
-  benefits:['Basic maintenance included','Premium full service','No hidden charges','Priority support','Flexible packages','Annual options available'],
-  terms:['AMC plan renews monthly/annually','Emergency repair charges waived','Non-transferable plan','30-day cancellation notice']
-},
-{
-  id:5,
-  image:"videos/e.png",
-  name:'All Type Of Water Softener',
-  icon:'fa-tint',
-  pricing:'From ₹499',
-  desc:'Hard water solutions for home and commercial use with complete support.',
-  included:['Softener installation','Resin level management','Salt level monitoring','System optimization','Water testing','Regular maintenance'],
-  benefits:['Installation technicians','Home & commercial solutions','High-capacity units','All brand support','Expert advice','Ongoing maintenance'],
-  terms:['Installation for home units','Commercial rates differ','Maintenance sold separately','Resin replacement additional']
-},
-{
-  id:6,
-  image:"videos/f.png",
-  name:'All Type Of Commercial RO Plant',
-  icon:'fa-industry',
-  pricing:'Custom Pricing',
-  desc:'High-capacity RO systems for offices, factories, and bulk water supply.',
-  included:['Custom capacity design','High-output installation','Bulk water supply setup','Commercial-grade components','Expert installation','Ongoing support'],
-  benefits:['Commercial-grade quality','Custom capacity solutions','Certified engineers','High efficiency','24/7 support','Bulk water solutions'],
-  terms:['Custom pricing for commercial','Installation on-site','Maintenance as per contract','Support packages available']
-}
+    {id:1,image:"videos/A.png",name:'All Type Of RO Repair Service',pricing:'From ₹299',desc:'Quick diagnosis and expert repair for all brands of RO water purifiers.',included:['Leak detection & fixing','Motor & pump repair','Filter assessment','Water quality testing','Performance optimization','24/7 emergency support'],benefits:['Certified technicians','Same-day service available','Genuine spare parts','30-day warranty on repairs','All brands supported','Professional guarantee'],terms:['Service charge is for labor only','Spare parts cost additional','Free initial diagnosis','Warranty valid for 30 days']},
+    {id:2,image:"videos/b.png",name:'All Type Of RO Installation',pricing:'₹499 Install',desc:'New installation, relocation, and expert setup for all RO brands.',included:['Complete system setup','Water quality testing','System programming & training','Pipe & electrical connections','UV lamp installation','Pump replacement if needed','Leak repair & fixings','3 months free maintenance'],benefits:['Certified installation technicians','Same-day installation','Genuine spare parts','Professional warranty','All brands service','24/7 emergency support'],terms:['Installation excludes plumbing items','Service charge is labor only','Not including filter costs','Free maintenance for 3 months']},
+    {id:3,image:"videos/c.png",name:'All Type Of Filter Replacement',pricing:'Affordable Service',desc:'Genuine filters & membranes for all RO brands with professional replacement.',included:['Sediment filter replacement','Carbon filter replacement','RO membrane change','Post-filter replacement','System flushing & cleaning','Water quality check','Filter disposal'],benefits:['Genuine pre-filters guaranteed','All filter types available','Expert replacement service','Quality water assured','Certified technicians','Warranty on filters'],terms:['Pre-filter replacement service','RO membrane additional cost','Carbon & post-filters included','Labor cost as per service']},
+    {id:4,image:"videos/d.png",name:'All Type Of EMC Packages',pricing:'Starting from ₹499/month',desc:'Flexible maintenance plans with quarterly servicing and priority support.',included:['Basic: Monthly filter cleaning','Premium: Quarterly full servicing','Annual: Comprehensive maintenance','Free emergency repair','Priority technician visit','Water quality monitoring'],benefits:['Basic maintenance included','Premium full service','No hidden charges','Priority support','Flexible packages','Annual options available'],terms:['AMC plan renews monthly/annually','Emergency repair charges waived','Non-transferable plan','30-day cancellation notice']},
+    {id:5,image:"videos/e.png",name:'All Type Of Water Softener',pricing:'From ₹499',desc:'Hard water solutions for home and commercial use with complete support.',included:['Softener installation','Resin level management','Salt level monitoring','System optimization','Water testing','Regular maintenance'],benefits:['Installation technicians','Home & commercial solutions','High-capacity units','All brand support','Expert advice','Ongoing maintenance'],terms:['Installation for home units','Commercial rates differ','Maintenance sold separately','Resin replacement additional']},
+    {id:6,image:"videos/f.png",name:'All Type Of Commercial RO Plant',pricing:'Custom Pricing',desc:'High-capacity RO systems for offices, factories, and bulk water supply.',included:['Custom capacity design','High-output installation','Bulk water supply setup','Commercial-grade components','Expert installation','Ongoing support'],benefits:['Commercial-grade quality','Custom capacity solutions','Certified engineers','High efficiency','24/7 support','Bulk water solutions'],terms:['Custom pricing for commercial','Installation on-site','Maintenance as per contract','Support packages available']},
   ];
 
   const reviews = [
-    { init:'R', bg:'#0057b8', name:'Ramesh Kumar', text:'"Very professional service. Technician came on time and fixed everything perfectly. Highly recommend!"' },
-    { init:'P', bg:'#00a896', name:'Priya Nair', text:'"Affordable pricing and excellent work. Called in the morning, they came by noon. Very satisfied!"' },
-    { init:'S', bg:'#f59e0b', name:'Suresh Babu', text:'"Complete filter replacement done neatly. Water quality improved significantly. Great service!"' },
-    { init:'A', bg:'#7c3aed', name:'Anjali Singh', text:'"New RO installation was smooth and professional. Very knowledgeable technician. Trusted!"' },
-    { init:'M', bg:'#2563eb', name:'Mohammed Imran', text:'"Emergency repair on Sunday! Motor fixed in 45 minutes. Reasonable charges. Best in town!"' },
-    { init:'D', bg:'#ea580c', name:'Deepa Krishnan', text:'"Using AMC plan for 2 years. Always on time for quarterly service. Very reliable!"' },
-    { init:'V', bg:'#059669', name:'Vikram Singh', text:'"Commercial RO plant installation was flawless. High capacity, excellent efficiency. Recommended!"' },
-    { init:'G', bg:'#14b8a6', name:'Geeta Sharma', text:'"Filter quality is excellent. Service visit was quick and efficient. Highly satisfied!"' },
+    {init:'R',bg:'#0057b8',name:'Ramesh Kumar',text:'"Very professional service. Technician came on time and fixed everything perfectly. Highly recommend!"'},
+    {init:'P',bg:'#00a896',name:'Priya Nair',text:'"Affordable pricing and excellent work. Called in the morning, they came by noon. Very satisfied!"'},
+    {init:'S',bg:'#f59e0b',name:'Suresh Babu',text:'"Complete filter replacement done neatly. Water quality improved significantly. Great service!"'},
+    {init:'A',bg:'#7c3aed',name:'Anjali Singh',text:'"New RO installation was smooth and professional. Very knowledgeable technician. Trusted!"'},
+    {init:'M',bg:'#2563eb',name:'Mohammed Imran',text:'"Emergency repair on Sunday! Motor fixed in 45 minutes. Reasonable charges. Best in town!"'},
+    {init:'D',bg:'#ea580c',name:'Deepa Krishnan',text:'"Using AMC plan for 2 years. Always on time for quarterly service. Very reliable!"'},
+    {init:'V',bg:'#059669',name:'Vikram Singh',text:'"Commercial RO plant installation was flawless. High capacity, excellent efficiency. Recommended!"'},
+    {init:'G',bg:'#14b8a6',name:'Geeta Sharma',text:'"Filter quality is excellent. Service visit was quick and efficient. Highly satisfied!"'},
   ];
+
   const gallery = [
-  {
-    label: "RO Installation",
-    image: "videos/g.png",
-    big: true
-  },
-  {
-    label: "RO Repair",
-    image: "videos/h.png"
-  },
-  {
-    label: "Filter Replacement",
-    image: "videos/i.png"
-  },
-  {
-    label: "Water Testing",
-    image: "videos/j.png"
-  },
-  {
-    label: "RO Service",
-    image: "videos/k.png"
-  },
-  {
-    label: "Customer Visit",
-    image: "videos/l.png"
-  }
-];
+    {label:'RO Installation',image:'videos/g.png',big:true},
+    {label:'RO Repair',image:'videos/h.png'},
+    {label:'Filter Replacement',image:'videos/i.png'},
+    {label:'Water Testing',image:'videos/j.png'},
+    {label:'RO Service',image:'videos/k.png'},
+    {label:'Customer Visit',image:'videos/l.png'},
+  ];
 
   const faqs = [
-    { q: 'How often should I replace RO filters?', a: 'Sediment and carbon filters typically last 6-12 months, while RO membranes last 1-3 years depending on water quality and usage. We recommend getting water quality checked annually.' },
-    { q: 'Do you service all RO brands?', a: 'Yes, we service all major brands including Kent, Aquaguard, Livpure, Brita, AO Smith, Eureka Forbes, and many others. Our technicians are trained on all models.' },
-    { q: 'What is the cost of RO service?', a: 'Service charges start from ₹399. This covers labor only. Spare parts like filters and membranes are charged separately based on the issue and requirement.' },
-    { q: 'How soon can you provide service?', a: 'We typically provide same-day service for booking before noon. For urgent cases, we offer emergency repair support 24/7 with nominal extra charges.' },
-    { q: 'What areas in Bengaluru do you serve?', a: 'We serve all of Bengaluru including HSR Layout, Indiranagar, Koramangala, Whitefield, Electronic City, and all surrounding areas. Call us to confirm your location.' },
-    { q: 'Is there a warranty on repairs?', a: 'Yes, all repairs come with a 30-day warranty. If the same issue occurs within 30 days, we fix it free of cost. Spare parts have their own manufacturer warranty.' },
-    { q: 'Do you offer maintenance contracts?', a: 'Yes, we have AMC (Annual Maintenance Contract) packages starting from ₹499/month with quarterly servicing, priority support, and emergency repairs covered.' },
-    { q: 'Can you install a water softener with my RO?', a: 'Absolutely! We provide combined RO + water softener systems. Water softener removes hardness, and RO removes salts and impurities for perfect water quality.' },
-    { q: 'What if my RO water flow is very low?', a: 'Low water flow can be due to clogged filters, low inlet pressure, or RO membrane issues. We diagnose the problem and fix it. Usually requires filter replacement or membrane cleaning.' },
-    { q: 'Do you provide water testing?', a: 'Yes, we provide free TDS testing during service visits. For detailed water quality analysis, we can arrange lab testing with a nominal fee.' },
-    { q: 'Can I cancel or change my AMC plan?', a: 'Yes, you can cancel with 30 days notice. If you want to upgrade or downgrade, contact us and we\'ll adjust your plan accordingly.' },
-    { q: 'What payment methods do you accept?', a: 'We accept cash, UPI, credit/debit cards, and digital wallets. No online prepayment required. Pay after service completion.' },
+    {q:'How often should I replace RO filters?',a:'Sediment and carbon filters typically last 6-12 months, while RO membranes last 1-3 years depending on water quality and usage. We recommend getting water quality checked annually.'},
+    {q:'Do you service all RO brands?',a:'Yes, we service all major brands including Kent, Aquaguard, Livpure, Brita, AO Smith, Eureka Forbes, and many others. Our technicians are trained on all models.'},
+    {q:'What is the cost of RO service?',a:'Service charges start from ₹399. This covers labor only. Spare parts like filters and membranes are charged separately based on the issue and requirement.'},
+    {q:'How soon can you provide service?',a:'We typically provide same-day service for booking before noon. For urgent cases, we offer emergency repair support 24/7 with nominal extra charges.'},
+    {q:'What areas in Bengaluru do you serve?',a:'We serve all of Bengaluru including HSR Layout, Indiranagar, Koramangala, Whitefield, Electronic City, and all surrounding areas. Call us to confirm your location.'},
+    {q:'Is there a warranty on repairs?',a:'Yes, all repairs come with a 30-day warranty. If the same issue occurs within 30 days, we fix it free of cost. Spare parts have their own manufacturer warranty.'},
+    {q:'Do you offer maintenance contracts?',a:'Yes, we have AMC (Annual Maintenance Contract) packages starting from ₹499/month with quarterly servicing, priority support, and emergency repairs covered.'},
+    {q:"Can you install a water softener with my RO?",a:'Absolutely! We provide combined RO + water softener systems. Water softener removes hardness, and RO removes salts and impurities for perfect water quality.'},
+    {q:'What if my RO water flow is very low?',a:'Low water flow can be due to clogged filters, low inlet pressure, or RO membrane issues. We diagnose the problem and fix it. Usually requires filter replacement or membrane cleaning.'},
+    {q:'Do you provide water testing?',a:'Yes, we provide free TDS testing during service visits. For detailed water quality analysis, we can arrange lab testing with a nominal fee.'},
+    {q:"Can I cancel or change my AMC plan?",a:"Yes, you can cancel with 30 days notice. If you want to upgrade or downgrade, contact us and we'll adjust your plan accordingly."},
+    {q:'What payment methods do you accept?',a:'We accept cash, UPI, credit/debit cards, and digital wallets. No online prepayment required. Pay after service completion.'},
   ];
 
   const navTo = id => {
     const el = document.getElementById(id);
-    if (el) { const top = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior:'smooth' }); }
+    if (el) window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-70,behavior:'smooth'});
   };
 
   return (
@@ -742,9 +731,7 @@ function App() {
 
       {/* HERO */}
       <section id="home" className="hero">
-        <div className="hero-bg">
-          <div className="hero-overlay"></div>
-        </div>
+        <div className="hero-bg"><div className="hero-overlay"></div></div>
         <div className="hero-content">
           <div className="hero-badge"><i className="fas fa-award"></i> Trusted Since 2014 · 5000+ Services Done</div>
           <h1>Basava Water Filter Service</h1>
@@ -760,14 +747,14 @@ function App() {
           </div>
         </div>
         <div className="hero-wave">
-          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,40 C480,90 960,0 1440,50 L1440,80 L0,80 Z" fill="var(--bg)"/>
+          <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,28 C480,62 960,0 1440,36 L1440,50 L0,50 Z" fill="var(--bg)"/>
           </svg>
         </div>
       </section>
 
       {/* TIMINGS */}
-      <section className="wrap" style={{marginTop:'-30px',marginBottom:60,position:'relative',zIndex:2}}>
+      <section className="wrap" style={{marginTop:'-8px',marginBottom:42,position:'relative',zIndex:2}}>
         <div className="timings-banner">
           <div className="timings-content">
             <div className="timings-text">
@@ -777,18 +764,19 @@ function App() {
             <div className="timings-hours">
               <div><strong>Monday – Sunday:</strong> 8:00 AM – 8:00 PM</div>
               <div><strong>Emergency Support:</strong> 24/7 Available</div>
-              <div style={{marginTop:6,fontSize:'.8rem',opacity:.8}}>📞 Call 9035347020 anytime</div>
+              <div style={{marginTop:4,fontSize:'.76rem',opacity:.8}}>📞 Call 9035347020 anytime</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
+      {/* WHY */}
       <section id="why" className="why-sec">
         <div className="wrap">
           <div className="sec-hd"><span className="eyebrow">Why Choose Us</span><h2>Bengaluru's Most Trusted RO Experts</h2></div>
           <div className="why-grid">
-            {[{cls:'ic1',icon:'fa-bolt',h:'Fast Service',p:'Book before noon, get service same day — every day including Sundays.'},
+            {[
+              {cls:'ic1',icon:'fa-bolt',h:'Fast Service',p:'Book before noon, get service same day — every day including Sundays.'},
               {cls:'ic2',icon:'fa-user-cog',h:'Expert Technicians',p:'Certified engineers with 10+ years experience, handling every brand.'},
               {cls:'ic3',icon:'fa-cog',h:'Genuine Parts',p:'Only original spare parts — no cheap substitutes, ever guaranteed.'},
               {cls:'ic4',icon:'fa-star',h:'Satisfaction Guaranteed',p:'30-day service warranty. Not happy? We fix it free of charge.'}
@@ -809,12 +797,12 @@ function App() {
           <div className="svc-grid">
             {services.map(s=>(
               <div key={s.id} className="svc-card anim" onClick={()=>setSelectedService(s)}>
-                <div className="svc-img"><img src={s.image}alt={s.name}style={{width: "100%",height: "100%",objectFit: "contain"}}/></div>
+                <div className="svc-img"><img src={s.image} alt={s.name} style={{width:'100%',height:'100%',objectFit:'contain'}}/></div>
                 <div className="svc-body">
                   <h3>{s.name}</h3>
                   <div className="svc-price">{s.pricing}</div>
                   <p className="svc-desc">{s.desc}</p>
-                  <button className="btn-learn" onClick={e=>{e.stopPropagation();setSelectedService(s)}}>Learn More</button>
+                  <button className="btn-learn" onClick={e=>{e.stopPropagation();setSelectedService(s);}}>Learn More</button>
                 </div>
               </div>
             ))}
@@ -827,16 +815,14 @@ function App() {
         <div className="wrap">
           <div className="sec-hd lt"><span className="eyebrow lt">How It Works</span><h2>Service in 4 Simple Steps</h2></div>
           <div className="proc-row">
-            {[{n:1,icon:'fa-mobile-alt',h:'Book Service',p:'Fill the form or call us'},
-              null,
-              {n:2,icon:'fa-user-check',h:'Technician Assigned',p:'Nearest expert is assigned'},
-              null,
-              {n:3,icon:'fa-home',h:'Visit Your Home',p:'Technician arrives at your door'},
-              null,
+            {[
+              {n:1,icon:'fa-mobile-alt',h:'Book Service',p:'Fill the form or call us'},null,
+              {n:2,icon:'fa-user-check',h:'Technician Assigned',p:'Nearest expert is assigned'},null,
+              {n:3,icon:'fa-home',h:'Visit Your Home',p:'Technician arrives at your door'},null,
               {n:4,icon:'fa-check-double',h:'Service Completed',p:'Pure water guaranteed'}
             ].map((item,i)=>item
-              ? <div key={item.n} className="proc-step anim"><div className="proc-n">{item.n}</div><div className="proc-icon"><i className={`fas ${item.icon}`}></i></div><h4>{item.h}</h4><p>{item.p}</p></div>
-              : <div key={i} className="proc-arr"><i className="fas fa-chevron-right"></i></div>
+              ?<div key={item.n} className="proc-step anim"><div className="proc-n">{item.n}</div><div className="proc-icon"><i className={`fas ${item.icon}`}></i></div><h4>{item.h}</h4><p>{item.p}</p></div>
+              :<div key={i} className="proc-arr"><i className="fas fa-chevron-right"></i></div>
             )}
           </div>
         </div>
@@ -852,7 +838,8 @@ function App() {
             <div className="book-contacts">
               <a href="tel:+919035347020"><i className="fas fa-phone"></i> 9035347020</a>
               <a href="mailto:basavawaterfilter08@gmail.com"><i className="fas fa-envelope"></i> basavawaterfilter08@gmail.com</a>
-              <a href="https://wa.me/919035347020?text=👋%20Hi%20Basava%20Water%20Filter%20Service,%0A%0A💧%20I%20need%20service%20for%20my%20RO%20water%20purifier.%0A%0A📅%20Please%20contact%20me%20to%20schedule%20a%20technician%20visit%20at%20a%20convenient%20time.%0A%0A💰%20Kindly%20let%20me%20know:%0A•%20Service%20charges%0A•%20Earliest%20available%20appointment%0A%0A🙏%20Thank%20you!%20I%20look%20forward%20to%20your%20response." target="_blank"><i className="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+              <a href="https://www.instagram.com/basavawaterfilter/" target="_blank" rel="noopener"><i className="fab fa-instagram"></i> Follow us on Instagram</a>
+              <a href={WA} target="_blank" rel="noopener"><i className="fab fa-whatsapp"></i> Chat on WhatsApp</a>
             </div>
           </div>
           <BookingForm/>
@@ -884,39 +871,33 @@ function App() {
           <div className="gal-grid">
             {gallery.map(g=>(
               <div key={g.label} className={`g-item anim ${g.big?'g-big':''}`}>
-                <img src={g.image} alt={g.label} style={{width:"100%",height:"100%",objectFit:"contain"}} />
+                <img src={g.image} alt={g.label} style={{width:'100%',height:'100%',objectFit:'cover'}}/>
                 <div className="g-label"><i className="fas fa-camera"></i> {g.label}</div>
               </div>
             ))}
           </div>
-          <p style={{textAlign:'center',marginTop:18,fontSize:'.83rem',color:'#94a3b8'}}> <code></code> </p>
         </div>
       </section>
 
-      {/* VIDEO GALLERY */}
+      {/* VIDEO */}
       <section className="vid-sec">
         <div className="wrap">
           <div className="sec-hd lt"><span className="eyebrow lt">Watch Us Work</span><h2>Video Gallery</h2></div>
           <div className="vid-grid">
-            {[
-              { label: "RO Repair & Service", video: "video/101.mp4" },
-              { label: "RO Repair & Service", video: "video/102.mp4" },
-              { label: "RO Repair & Service", video: "video/103.mp4" },
-            ].map(v=>(
+            {[{label:'RO Repair & Service',video:'video/101.mp4'},{label:'RO Repair & Service',video:'video/102.mp4'},{label:'RO Repair & Service',video:'video/103.mp4'}].map(v=>(
               <VideoCard key={v.video} label={v.label} src={v.video}/>
             ))}
           </div>
-          <p className="vid-note" style={{textAlign:'center',marginTop:24,color:'rgba(255,255,255,.4)',fontSize:'.8rem'}}> Watch our real RO installation and repair videos.</p>
+          <p style={{textAlign:'center',marginTop:18,color:'rgba(255,255,255,.4)',fontSize:'.79rem'}}>Watch our real RO installation and repair videos.</p>
         </div>
       </section>
+
       {/* FAQ */}
       <section id="faq" className="faq-sec">
         <div className="wrap">
-          <div className="sec-hd"><span className="eyebrow">Frequently Asked Questions</span><h2>Common Questions Answered</h2></div>
+          <div className="sec-hd"><span className="eyebrow">FAQ</span><h2>Common Questions Answered</h2></div>
           <div className="faq-grid">
-            {faqs.map((item,i)=>(
-              <FAQItem key={i} question={item.q} answer={item.a}/>
-            ))}
+            {faqs.map((item,i)=><FAQItem key={i} question={item.q} answer={item.a}/>)}
           </div>
         </div>
       </section>
@@ -939,9 +920,16 @@ function App() {
       {/* MAP */}
       <section className="map-sec">
         <div className="wrap">
-          <div className="sec-hd"><span className="eyebrow">Find Us</span><h2>We Serve All of Bengaluru</h2><p className="sec-sub">Based in Vijayanagar — reaching every corner of Bengaluru</p></div>
+          <div className="sec-hd">
+            <span className="eyebrow">Find Us</span>
+            <h2>We Serve All of Bengaluru</h2>
+            <p className="sec-sub">Based near J P Nagar Metro, 8th Block J P Nagar — reaching every corner of Bengaluru</p>
+          </div>
           <div className="map-box">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15553.25!2d77.5160!3d12.9714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3dc0e3b36a41%3A0x2bcf1d5c9e5c1e45!2sVijayanagar%2C%20Bengaluru!5e0!3m2!1sen!2sin!4v1700000000001" width="100%" height="420" style={{border:0}} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Vijayanagar Bengaluru"/>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15558.062369165249!2d77.567627682314!3d12.874533467315244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6ab2c25b8055%3A0x1ae936e0246c7852!2s8th%20Phase%2C%20J.%20P.%20Nagar%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1782554767433!5m2!1sen!2sin"
+              width="100%" height="380" style={{border:0}} allowFullScreen loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin" title="JP Nagar Bengaluru"/>
           </div>
         </div>
       </section>
@@ -951,10 +939,35 @@ function App() {
         <div className="wrap">
           <div className="sec-hd"><span className="eyebrow">Get In Touch</span><h2>Contact Us</h2></div>
           <div className="contact-grid">
-            <div className="contact-card anim"><div className="cc-icon cc-blue"><i className="fas fa-phone-alt"></i></div><h4>Call Us</h4><a href="tel:+919035347020">+91 9035347020</a><p>Mon – Sun · 8 AM – 8 PM</p></div>
-            <div className="contact-card anim"><div className="cc-icon cc-green"><i className="fab fa-whatsapp"></i></div><h4>WhatsApp</h4><a href="https://wa.me/919035347020?text=👋%20Hi%20Basava%20Water%20Filter%20Service,%0A%0A💧%20I%20need%20service%20for%20my%20RO%20water%20purifier.%0A%0A📅%20Please%20contact%20me%20to%20schedule%20a%20technician%20visit%20at%20a%20convenient%20time.%0A%0A💰%20Kindly%20let%20me%20know:%0A•%20Service%20charges%0A•%20Earliest%20available%20appointment%0A%0A🙏%20Thank%20you!%20I%20look%20forward%20to%20your%20response." target="_blank">Message Us Now</a><p>Quick replies guaranteed</p></div>
-            <div className="contact-card anim"><div className="cc-icon cc-gold"><i className="fas fa-envelope"></i></div><h4>Email</h4><a href="mailto:basavawaterfilter08@gmail.com">basavawaterfilter08@gmail.com</a><p>Reply within 2 hours</p></div>
-            <div className="contact-card anim"><div className="cc-icon cc-purple"><i className="fas fa-map-marker-alt"></i></div><h4>Address</h4><p>Vijayanagar, Bengaluru<br/>Karnataka – 560040</p></div>
+            <div className="contact-card anim">
+              <div className="cc-icon cc-blue"><i className="fas fa-phone-alt"></i></div>
+              <h4>Call Us</h4>
+              <a href="tel:+919035347020">+91 9035347020</a>
+              <p>Mon – Sun · 8 AM – 8 PM</p>
+            </div>
+            <div className="contact-card anim">
+              <div className="cc-icon cc-green"><i className="fab fa-whatsapp"></i></div>
+              <h4>WhatsApp</h4>
+              <a href={WA} target="_blank" rel="noopener">Message Us Now</a>
+              <p>Quick replies guaranteed</p>
+            </div>
+            <div className="contact-card anim">
+              <div className="cc-icon cc-gold"><i className="fas fa-envelope"></i></div>
+              <h4>Email</h4>
+              <a href="mailto:basavawaterfilter08@gmail.com?subject=RO%20Service%20Request">basavawaterfilter08@gmail.com</a>
+              <p>Reply within 2 hours</p>
+            </div>
+            <div className="contact-card anim">
+              <div className="cc-icon cc-purple"><i className="fas fa-map-marker-alt"></i></div>
+              <h4>Address</h4>
+              <a href="https://maps.google.com/?q=JP+Nagar+8th+Block+Bengaluru" target="_blank" rel="noopener">Near J P Nagar 8th Block<br/>Karnataka – 560040</a>
+            </div>
+            <div className="contact-card anim">
+              <div className="cc-icon cc-pink"><i className="fab fa-instagram"></i></div>
+              <h4>Instagram</h4>
+              <a href="https://www.instagram.com/basavawaterfilter/" target="_blank" rel="noopener">Follow & Message Us</a>
+              <p>Follow us & send a DM anytime</p>
+            </div>
           </div>
         </div>
       </section>
@@ -963,108 +976,41 @@ function App() {
       <footer className="footer">
         <div className="wrap footer-in">
           <div className="ft-brand">
-            <div className="brand"><div className="brand-icon" style={{width:36,height:36,fontSize:'1rem',borderRadius:9}}><i className="fas fa-tint"></i></div><div><span className="brand-name" style={{color:'#fff'}}>Basava Water Filter Service</span><span className="brand-sub" style={{color:'rgba(255,255,255,.4)'}}>RO Experts</span></div></div>
+            <div className="brand">
+              <div className="brand-icon" style={{width:34,height:34,fontSize:'1rem',borderRadius:8}}><i className="fas fa-tint"></i></div>
+              <div><span className="brand-name" style={{color:'#fff'}}>Basava Water Filter</span><span className="brand-sub" style={{color:'rgba(255,255,255,.4)'}}>RO Experts</span></div>
+            </div>
             <p>Your trusted partner for pure water in Bengaluru since 2014.</p>
           </div>
           <div className="ft-col">
             <h5>Quick Links</h5>
-            {['home','services','booking','reviews','faq','contact'].map(id=><a key={id} onClick={()=>navTo(id)}>{id.charAt(0).toUpperCase()+id.slice(1)}</a>)}
+            {['home','services','booking','reviews','faq','contact'].map(id=>(
+              <a key={id} onClick={()=>navTo(id)}>{id.charAt(0).toUpperCase()+id.slice(1)}</a>
+            ))}
           </div>
           <div className="ft-col">
             <h5>Contact</h5>
-            <p><i className="fas fa-phone"></i> 9035347020</p>
-            <p><i className="fas fa-envelope"></i> basavawaterfilter08@gmail.com</p>
-            <p><i className="fas fa-map-marker-alt"></i> Vijayanagar, Bengaluru</p>
+            <p><i className="fas fa-phone"></i><a href="tel:+919035347020" style={{color:'rgba(255,255,255,.5)'}}>9035347020</a></p>
+            <p><i className="fas fa-envelope"></i><a href="mailto:basavawaterfilter08@gmail.com" style={{color:'rgba(255,255,255,.5)'}}>basavawaterfilter08@gmail.com</a></p>
+            <p><i className="fab fa-instagram"></i><a href="https://www.instagram.com/basavawaterfilter/" target="_blank" rel="noopener" style={{color:'rgba(255,255,255,.5)'}}>@basavawaterfilter</a></p>
+            <p><i className="fas fa-map-marker-alt"></i><span>JP Nagar, Bengaluru</span></p>
           </div>
         </div>
         <div className="ft-btm"><p>© 2026 Basava Water Filter Service. All Rights Reserved.</p></div>
       </footer>
 
-      {/* FLOATING BUTTONS */}
-      <a href="tel:+919035347020" className="fab-call"><i className="fas fa-phone"></i><span>Call Now</span></a>
-      <a href="https://wa.me/919035347020?text=👋%20Hi%20Basava%20Water%20Filter%20Service,%0A%0A💧%20I%20need%20service%20for%20my%20RO%20water%20purifier.%0A%0A📅%20Please%20contact%20me%20to%20schedule%20a%20technician%20visit%20at%20a%20convenient%20time.%0A%0A💰%20Kindly%20let%20me%20know:%0A•%20Service%20charges%0A•%20Earliest%20available%20appointment%0A%0A🙏%20Thank%20you!%20I%20look%20forward%20to%20your%20response." className="fab-wa" target="_blank"><i className="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+      {/* ✅ FLOATING BUTTONS — wrapper ensures both stay on screen */}
+      <div className="fab-wrap">
+        <a href="tel:+919035347020" className="fab-call">
+          <i className="fas fa-phone"></i><span>Call Now</span>
+        </a>
+        <a href={WA} className="fab-wa" target="_blank" rel="noopener">
+          <i className="fab fa-whatsapp"></i><span>WhatsApp</span>
+        </a>
+      </div>
 
-      {/* SERVICE MODAL */}
-      <ServiceModal service={selectedService} onClose={()=>setSelectedService(null)}/>
+      {selectedService && <ServiceModal service={selectedService} onClose={()=>setSelectedService(null)}/>}
     </>
-  );
-}
-
-// ════════════════════════════════════════════════
-//  VIDEO CARD (with visible error reporting for GitHub Pages debugging)
-// ════════════════════════════════════════════════
-function VideoCard({ label, src }) {
-  const [error, setError] = useState(null);
-  const videoRef = useRef(null);
-
-  
-
-  function handleError(e) {
-    const codeMap = {
-      1: 'Loading aborted',
-      2: 'Network error',
-      3: 'Decode error — file may be corrupt',
-      4: 'File not found or format not supported'
-    };
-    const mediaError = e.target.error;
-    const msg = mediaError ? (codeMap[mediaError.code] || 'Unknown error') : 'Failed to load';
-    setError(msg);
-    console.error(`[Video failed] "${src}" → ${resolvedSrc} — ${msg}`);
-  }
-
-  return (
-    <div className="vid-card anim">
-      <div className="vid-thumb">
-        {!error ? (
-          <video
-            ref={videoRef}
-            controls
-            playsInline
-            muted
-            preload="metadata"
-            width="100%"
-            height="100%"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              display: "block",
-              backgroundColor: "#000"
-            }}
-            onError={handleError}
-          >
-            <source src={src} type="video/mp4" />
-            Your browser does not support HTML5 video.
-          </video>
-        ) : (
-          <div className="vid-error">
-            <i className="fas fa-triangle-exclamation"></i>
-            <span>Couldn't load "{src}"<br />{error}</span>
-          </div>
-        )}
-        <div className="vid-title">{label}</div>
-      </div>
-    </div>
-  );
-}
-
-function FAQItem({ question, answer }) {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <div className={`faq-item ${open ? "active" : ""}`}>
-      <div
-        className="faq-question"
-        onClick={() => setOpen(!open)}
-      >
-        <span>{question}</span>
-        <i className={`fas ${open ? "fa-chevron-up" : "fa-chevron-down"}`}></i>
-      </div>
-
-      <div className="faq-answer">
-        <p>{answer}</p>
-      </div>
-    </div>
   );
 }
 
